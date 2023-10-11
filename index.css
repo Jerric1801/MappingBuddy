@@ -1,3 +1,13 @@
+@font-face {
+    font-family: Grotesk;
+    src: url(./static/Space_Grotesk/static/SpaceGrotesk-Regular.ttf);
+  }
+
+@font-face {
+font-family: Inter;
+src: url(./static/Inter/static/Inter-Regular.ttf)
+} 
+
 body {
     margin: 0;
     padding: 0;
@@ -5,12 +15,14 @@ body {
     min-width: 100%;
     max-height: 100vh;
     min-height: 100vh;
-    font-family: avenir;
+    font-family: Grotesk;
+    overflow:hidden;
 }
 
 #kanbanTop {
     height: 6vh;
     width: 100%;
+    background-color: #f8f8f8;
 }
 
 #kanban {
@@ -18,39 +30,60 @@ body {
     flex-direction: row;
 }
 
+
 #sideBar {
+    position: absolute;
     display: flex;
     flex-direction: column;
     width: 17.5%;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    border: 1px solid black;
+    height: 94vh;
+    background-color: #f8f8f8;
+    box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.2);
+    /* animation: openSideBar 2s alternate-reverse; */
 }
 
-    #majorContainer {
-        height: 0vh;
-        width: 95%;
-        border: 1px solid black;
+@keyframes closeSideBar {
+    from {
+        width: 17.5%;
+        opacity:1;
     }
+    to {
+        width:0%;
+        opacity: 0;
+    }
+}
+
+.hideSideBar {
+    animation: closeSideBar 1s forwards ease;
+    /* width: 0% !important; */
+}
+
 
     #searchContainer {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         height: 90vh;
-        width: 95%;
-        border: 1px solid black;
-
+        width: 100%;
     }
         #searchInput {
             width: 80%;
-            height: 10%;
+            height: 7.5%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
+
+            #searchInput input {
+                border-radius: 5px;
+                border: 1px solid black;
+                padding-left: 15px;
+                font-family: Grotesk;
+            }
 
         #searchbar {
             width: 100%;
@@ -58,8 +91,10 @@ body {
         }
 
         #searchResult {
-            max-width: 80%;
-            height: 85%;
+            width: 80%;
+            height: 92.5%;
+            /* overflow-y: scroll;
+            scrollbar-width: none; */;
         }
 
 
@@ -68,21 +103,78 @@ body {
     flex-direction: column;
     width: 82.5%;
     height: 100%;
+    margin-left: 17.5%;
+    /* animation: expandMainContainer 1s alternate-reverse; */
 }
+
+@keyframes expandMainContainer {
+    from {
+        margin-left: 17.5%;
+        width: 80%;
+    }
+    to {
+        margin-left: 0px;
+        width:100%;
+    }
+}
+
+
+.expandMain {
+    animation: expandMainContainer 1s forwards ease;
+    /* width: 100% !important; */
+}
+
+    #trackBar {
+        display:none;
+        width:100%;
+        height: 6vh;
+        position: absolute;
+        z-index: 99;
+        margin-top: 6vh;
+        background-color: #f8f8f8;
+        box-shadow: 10px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+        #openTrack  {
+            width: 40%;
+            float:right;
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 0.2em;
+            font-family: Grotesk;
+            color:#853AD7;
+            font-weight: bolder;
+        }
+
+            #openTrack:hover {
+                cursor:pointer;
+            }
+        
+            .toggleTrack {
+                display: flex !important;
+            }
+
+            #openTrack p {
+                margin: 0px;
+                margin-block-start: 0px;
+                margin-block-end: 0px;
+            }
 
     #topBar {
         width: 100%;
         height: 6vh;
-        border: 1px solid black;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        background-color: #f8f8f8;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
         #recoContainer {
             width: 75%;
             height: inherit;
-            border: 1px solid black;
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
@@ -90,44 +182,61 @@ body {
             gap: 20px;
         }
 
+        #closeSidebar {
+            width: 5%;
+            text-align: center;
+        }
+
+        #closeSidebar:hover {
+            cursor: pointer;
+        }
+
+        #closeSidebar p {
+            margin: 0px;
+            padding: 0px;
+            font-weight: bolder;
+            font-size: 30px;
+            color:rgb(127, 133, 255);
+        }
+
+
         #cuContainer {
             width: 50%;
             height: 100%;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             gap: 2.5%;
         }
 
-        .cuBar {
-            width:60%;
-            height:30%;
-            border-radius: 20px;
-            border: 0.5px solid black;
-            overflow: hidden;
-            display: flex;
-            flex-direction: row;
+            .cuBar {
+                width:60%;
+                height:30%;
+                border-radius: 20px;
+                border: 0.5px solid black;
+                overflow: hidden;
+                display: flex;
+                flex-direction: row;
 
-        }
+            }
 
-        .basket {
-            height: 100%;
-        }
+            .basket {
+                height: 100%;
+            }
 
-        .b1 {
-            background-color: rgb(127, 133, 255);
-            width: 30%;
-        }
+            .b1 {
+                background-color: rgb(127, 133, 255);
+                width: 30%;
+            }
 
-        .b2 {
-            background-color: bisque;
-            width: 20%;
-        }
+            .b2 {
+                background-color: bisque;
+                width: 20%;
+            }
         
         #validContainer {
             width: 25%;
             height: inherit;
-            border: 1px solid black;
         }
 
     #mainBoard {
@@ -136,7 +245,6 @@ body {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        border: 1px solid black;
         padding: 10px;
     }
 
@@ -155,7 +263,7 @@ body {
     }
 
     .horizontalScroll {
-        overflow: scroll;
+        overflow-x: scroll;
     }
     
 
@@ -172,7 +280,6 @@ body {
     #tabContainer {
         display: flex;
         flex-direction: row;
-        overflow-x: scroll;
         height:100%;
         display: flex;
         justify-content: center;
@@ -233,6 +340,10 @@ body {
     border-radius: 5px;
 }
 
+.semContainer h2 {
+    font-size: 1.3em;
+}
+
 .semTitle {
     width: 30%;
     height: 40px;
@@ -268,6 +379,7 @@ body {
 }
 
 .moduleCard p {
+    font-family: Inter;
     margin: 5px 0px 0px 5px;
     padding: 0px;
     text-align: left;

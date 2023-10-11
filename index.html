@@ -11,9 +11,7 @@
         </div>
         <div id = "kanban">
             <div id = "sideBar"> 
-                <div id = "majorContainer">
 
-                </div>
                 <div id = "searchContainer">
                     <div id = "searchInput">
                         <input type="search" id="searchbar">
@@ -24,8 +22,14 @@
                 </div>
             </div>
             <div id = "mainContainer">
+                <div id = "trackBar">
+
+                </div>
                 <div id = "topBar">
                     <div id = "recoContainer">
+                        <div id = "closeSidebar" onclick = "toggleSidebar()">
+                            <p><</p>
+                        </div>
                         <div id = "cuContainer">
                             <p>CUs:</p>
                             <div class = "cuBar">
@@ -38,8 +42,10 @@
                             <p id = "cuCounter">20/32</p>
                         </div>
                     </div>
-                    <div id = "validContainer" onclick = "toggleFocus()">
-
+                    <div id = "validContainer">
+                        <div id = "openTrack" onclick = "toggleTrack()">
+                            <p>v</p>
+                        </div>
                     </div>
                 </div>
                 <div class = "horizontalScroll">

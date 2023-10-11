@@ -29,6 +29,28 @@ const modColor = {
   "SM": "green"
 }
 
+function toggleFocus(){
+  $("#mainBoard").toggleClass("focus");
+}
+
+function toggleTrack() {
+  $("#trackBar").toggleClass("toggleTrack")
+}
+
+function toggleSidebar() {
+  $("#sideBar").toggleClass("hideSideBar")
+  $("#mainContainer").toggleClass("expandMain")
+  var arrow = $("#closeSidebar > p")
+  var text = arrow.text()
+
+  if (text === "<") {
+    arrow.text(">");
+  } else {
+    arrow.text("<");
+  }
+  
+}
+
 function generateKanban(sem = user.user[0].sem ) {
   $("#mainBoard").empty()
   $.each(sem, function(key, value) {
@@ -63,6 +85,17 @@ function generateKanban(sem = user.user[0].sem ) {
       }
     });
 
+    var left = 0
+
+    $("#mainContainer").on('wheel', function(event) {
+      // Calculate the delta of the scroll event.
+      var delta = event.originalEvent.wheelDelta;
+      left += delta
+      // Scroll the horizontal scroll container.
+      $('.horizontalScroll').scrollLeft(left);
+    });
+  
+
 }
 
 
@@ -76,7 +109,6 @@ function getBoard(index) {
       var module = $(this).children(":not(:first-child)")
       var text = ""
       $.each(module, function() {
-        console.log($(this).text())
           text += $(this).text()
           text += " "
       })
@@ -101,10 +133,6 @@ function getBoard(index) {
   currentBoard = index
 }
 
-function toggleFocus(){
-  console.log('print')
-  $("#mainBoard").toggleClass("focus");
-}
 
 function createTab(boardName) {
   var tab = $("<div>").attr({
@@ -193,7 +221,6 @@ function search() {
     // Filter the JSON data based on the search term
     var filteredData = filterMods(searchTerm)
 
-    console.log(filteredData)
     // Update the search results with the filtered JSON data
     $("#searchResult").empty();
     var count = 0
@@ -201,9 +228,8 @@ function search() {
     for (idx in filteredData) {
     
       var faculty = filteredData[idx]
-      console.log(idx)
       for (i in faculty){
-        if (count === 5) {
+        if (count === 20) {
           return;
         }
         var course = faculty[i]
@@ -226,7 +252,6 @@ $(document).ready(function() {
   search()
 
   generateKanban()
-
 
 
 })
