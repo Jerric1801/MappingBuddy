@@ -34,10 +34,10 @@ const modColor = {
   "QF": "#3F52B5"
 }
 
-function countCU() {
+function countCU(addition = 0) {
   var colorDict = {}
   var total = 32;
-  var mods = 0;
+  var mods = 0 - addition;
   var cardColor = $(".semContainer > .moduleCard")
   cardColor.each(function() {
     var colorCon = $(this).find(".moduleColor")
@@ -151,7 +151,8 @@ function generateKanban(sem = user.user[0].sem ) {
         if ($(this).children().length < 5){
           ui.draggable.attr("style", "position: relative; z-index: 50")
           ui.draggable.appendTo($(this)).css('order', $(ui.draggable).attr('position'));
-          countCU()
+          countCU(1)
+      
         }
         else {
           alert("Only 5 mods")
