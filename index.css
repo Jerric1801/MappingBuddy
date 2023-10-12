@@ -1,3 +1,12 @@
+:root {
+    /* white */
+    --pri: #ffffff; 
+    /* light grey */
+    --sec: #f8f8f8;
+    /* charcoal grey */
+    --grey: #333333;
+ }
+
 @font-face {
     font-family: Grotesk;
     src: url(./static/Space_Grotesk/static/SpaceGrotesk-Regular.ttf);
@@ -22,7 +31,7 @@ body {
 #kanbanTop {
     height: 6vh;
     width: 100%;
-    background-color: #f8f8f8;
+    background-color: var(--sec);
 }
 
 #kanban {
@@ -32,7 +41,7 @@ body {
 
 #filterModal {
     display: none;
-    background-color: white;
+    background-color: var(--pri);
     position: absolute;
     width: 50vw;
     height: 50vh;
@@ -74,7 +83,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     height: 94vh;
-    background-color: #f8f8f8;
+    background-color: var(--sec);
     box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.2);
     /* animation: openSideBar 2s alternate-reverse; */
 }
@@ -113,32 +122,75 @@ body {
             align-items: center;
         }
 
-            #searchInput input {
-                width: 80%;
-                height: 75%;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                border: 1px solid black;
-                padding-left: 15px;
-                font-family: Grotesk;
+        #searchInput input {
+            width: 80%;
+            height: 75%;
+            border: 3px solid var(--grey);
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            padding-left: 15px;
+            font-family: Grotesk;
+            transition: border 0.3s;
+          }
+          
+          #searchInput input:focus {
+            outline:none;
+            border: 3px solid transparent;
+            background-image: linear-gradient(white, white), linear-gradient(315deg, rgb(236, 160, 255), rgb(170, 178, 255), rgb(132, 255, 201));
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            animation: bg-hue 5s linear infinite;
+          }
+
+          @keyframes bg-hue {
+            100% {
+              filter: hue-rotate(360deg);
+            }
+          }
+
+        #filterContainer {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            width: 20%;
+            height: 75%;
+            background-color: var(--grey);
+            display: flex;
+            flex-direction: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #filterContainer:hover {
+            outline:none;
+            cursor: pointer;
+        }
+
+        #filterContainer img:hover {
+            animation: squeezeFilter 1s infinite;
+            transform: scale(0.3);
+        } 
+
+        @keyframes squeezeFilter {
+            0% {
+                transform: scale(0.98);
+            }
+            20% {
+                transform: scale(0.9) rotateZ(10deg)
+            }
+            50% {
+                transform: scale(0.85) rotateZ(-10deg);
+            }
+            100% {
+                transform: scale(0.98);
             }
 
-            #filterContainer {
-                border-top-right-radius: 5px;
-                border-bottom-right-radius: 5px;
-                width: 20%;
-                height: 75%;
-                background-color: #853AD7;
-                display: flex;
-                flex-direction: center;
-                justify-content: center;
-                align-items: center;
-            }
+        }
 
-                #filterContainer img {
-                    width: 50%;
-                    object-fit:contain;
-                }
+
+            #filterContainer img {
+                width: 40%;
+                object-fit:contain;
+            }
 
         #searchbar {
             width: 100%;
@@ -195,7 +247,7 @@ body {
         position: absolute;
         z-index: 99;
         margin-top: 6vh;
-        background-color: #f8f8f8;
+        background-color: var(--sec);
         box-shadow: 10px 2px 4px rgba(0, 0, 0, 0.2);
     }
     .trackContainer {
@@ -210,15 +262,15 @@ body {
 
         #openTrack  {
             width: 40%;
-            float:right;
             font-size: 2em;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-end;
             padding-top: 0em;
             font-family: Grotesk;
-            color:#853AD7;
+            color: var(--grey);
             font-weight: bolder;
+            padding-top: 0.3em;
         }
 
             #openTrack:hover {
@@ -238,10 +290,10 @@ body {
                 animation: expandTrack 1s forwards ease-in-out;
             }
 
-            #openTrack p {
-                margin: 0px;
-                margin-block-start: 0px;
-                margin-block-end: 0px;
+            #openTrack img {
+                object-fit: contain;
+                width: 20%;
+                height: 20%;
             }
 
     #topBar {
@@ -250,7 +302,7 @@ body {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        background-color: #f8f8f8;
+        background-color: var(--sec);
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
@@ -278,7 +330,7 @@ body {
             padding: 0px;
             font-weight: bolder;
             font-size: 30px;
-            color:rgb(127, 133, 255);
+            color:var(--grey);
         }
 
 
@@ -305,13 +357,44 @@ body {
             .basket {
                 height: 100%;
                 width: 0%;
+                animation: growCU 2s ease-in-out;
+            }
+
+
+            @keyframes growCU {
+                from {
+                    width:0;
+                }
             }
 
         
         #validContainer {
             width: 25%;
             height: inherit;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
         }
+
+        #focusKanban {
+            width: 40%;
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-top: 0em;
+            font-family: Grotesk;
+            color: var(--grey);
+            font-weight: bolder;
+            padding-top: 0.3em;
+        }
+
+        #focusKanban img {
+            width: 20%;
+        }
+
+
 
     #mainBoard {
         height: 80vh;
@@ -364,21 +447,39 @@ body {
         height: 80%;
         width: 150px;
         border: 1px solid black;
-        border-bottom: 3px solid #853AD7;
+        border-bottom: 3px solid var(--grey);
         display: flex;
         justify-content: center;
         align-items: center;
         margin-left: 3px;
+        animation: slideTab 1s ease-in-out;
+    }
+
+    @keyframes slideTab {
+        0% {
+            width: 50px;
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.2;
+        }
+        100% {
+            width: 150px;
+        }
     }
 
     .tab:hover {
-        background-color: #853AD7;
+        background-color: var(--grey);
         color: white;
         cursor: pointer;
+        -webkit-transition: background-color 0.5s ease-in-out;
+        -moz-transition: background-color 0.5s ease-in-out;
+        -o-transition: background-color 0.5s ease-in-out;
+        transition: background-color 0.5s ease-in-out;
     }
 
     .selectTab {
-        background-color: #853AD7;
+        background-color: var(--grey);
         color: white;
         border-bottom: 3px solid rgb(255, 255, 255);
     }
@@ -390,7 +491,7 @@ body {
         align-items: center;
         padding-left: 10px;
         font-size: 1.5em;
-        color: #853AD7;
+        color: var(--grey);
         width: 10%;
         height: 100%;
     }
@@ -422,8 +523,8 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
+    overflow:hidden
 }
-
 
 
 .semWrapper h2 {
@@ -433,7 +534,7 @@ body {
 .semTitle {
     width: 30%;
     height: 40px;
-    background-color: #853AD7;
+    background-color: var(--grey);
     color: white;
     display: flex;
     flex-direction: row;
@@ -461,8 +562,19 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
+    /* animation: fade 0.5s ease-in-out; */
 }
+
+/* @keyframes fade {
+    0% {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+    100% {
+        opcaity: 1;
+    }
+} */
 
 .moduleCard p {
     font-family: Inter;
@@ -484,4 +596,5 @@ body {
     background-color: #853AD7;
     margin-bottom: 5px;
 }
+
 

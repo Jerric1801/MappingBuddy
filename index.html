@@ -19,7 +19,7 @@
 
                 <div id = "searchContainer">
                     <div id = "searchInput">
-                        <input type="search" id="searchbar">
+                        <input type="search" id="searchbar" placeholder="Search" autocomplete="off">
                         <div id = "filterContainer" onclick = "checkFilter()">
                             <img src = "img/filter.png">
                         </div>
@@ -61,7 +61,10 @@
                     </div>
                     <div id = "validContainer">
                         <div id = "openTrack" onclick = "toggleTrack()">
-                            <p>v</p>
+                            <img src = "img/arrow-down.png">
+                        </div>
+                        <div id = "focusKanban" onclick = "toggleFocus()">
+                            <img src = "img/fullscreen.png">
                         </div>
                     </div>
                 </div>
