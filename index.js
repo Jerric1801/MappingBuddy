@@ -24,9 +24,58 @@ var currentBoard = 0
 
 //['IS', 'ACCT', 'COR', 'CS', 'SMT', 'DSA', 'ECON', 'FNCE', 'LAW', 'MGMT', 'MKTG', 'POSC', 'PPPM', 'PSYC', 'QF', 'SOCG', 'COR-MGMT', 'COR-STAT']
 const modColor = {
-  "CO": "#853AD7",
-  "IS": "rgb(127, 133, 255)",
-  "SM": "green"
+  "CO": "#2F91FF",
+  "IS": "#FFA41C",
+  "AC": "#FFA41C",
+  "EC": "#FFA41C",
+  "FN": "#FFA41C",
+  "CS": "#684BD8",
+  "SM": "#009688",
+  "QF": "#3F52B5"
+}
+
+function countCU() {
+  var colorDict = {}
+  var total = 32;
+  var mods = 0;
+  var cardColor = $(".semContainer > .moduleCard")
+  cardColor.each(function() {
+    var colorCon = $(this).find(".moduleColor")
+    var color = colorCon.css("background-color")
+    if (color in colorDict) {
+      colorDict[color] += 1
+    }
+    else {
+      colorDict[color] = 1
+    }
+    mods ++
+  })
+
+  var count = 1;
+  for (const [key, value] of Object.entries(colorDict)) {
+    var proportion = value / total * 100;
+    $(`.b` + count).css({
+      backgroundColor: key,
+      width: proportion+ "%"
+    })
+    count ++
+  }
+
+  $("#cuCounter").text(mods + "/" + total)
+}
+
+function checkFilter() {
+  var filterContainer = $("#filterModal")
+
+  if (filterContainer.css("display")=== "none") {
+    filterContainer.addClass("filterOpen")
+    setTimeout(() => {
+      filterContainer.removeClass("filterOpen")
+    }, 1000);
+    filterContainer.show()
+  } else {
+    filterContainer.hide()
+  }
 }
 
 function toggleFocus(){
@@ -35,6 +84,15 @@ function toggleFocus(){
 
 function toggleTrack() {
   $("#trackBar").toggleClass("toggleTrack")
+  var arrow = $("#openTrack > p")
+  var text = arrow.text()
+
+  if (text === "v") {
+    arrow.text("^");
+  } else {
+    arrow.text("v");
+  }
+  
 }
 
 function toggleSidebar() {
@@ -53,47 +111,63 @@ function toggleSidebar() {
 
 function generateKanban(sem = user.user[0].sem ) {
   $("#mainBoard").empty()
+  var count = 1
   $.each(sem, function(key, value) {
+
+    var semWrapper = $("<div>").attr({
+      class : "semWrapper",
+    });
     var semContainer = $("<div>").attr({
       class : "semContainer droppable",
+      id : `droppable${count}`
     });
 
-    semContainer.append("<div class = 'semTitle'>"+"<h2>" + key + "</h2>"+"</div>");
+    $(`#droppable${count}`).sortable({
+      items:".moduleCard"
+    })
+
+    semWrapper.append("<div class = 'semTitle'>"+"<h2>" + key + "</h2>"+"</div>");
 
     for (index in value) {
 
       text = value[index]
-      style = "margin-top: 10px; position: relative;"
-      module = createModule(text, style)
+      module = createModule(text, true)
 
       module.appendTo(semContainer)
     }
 
+
     // clone.children("H1").html(key)
-    semContainer.appendTo($("#mainBoard"))
+    semContainer.appendTo(semWrapper)
+    semWrapper.appendTo($("#mainBoard"))
+    count++ 
   })
+
+  countCU()
 
     // Make all elements with the class "droppable" droppable
     $(".droppable").droppable({
       drop: function(event, ui) {
-        // Move the draggable element to the droppable element
-        console.log(event)
-        ui.draggable.appendTo($(this));
-        ui.draggable.css("top", 0)
-        ui.draggable.css("left", 0)
-        ui.draggable.attr("style", "width:95%; height: 100px; margin-top: 10px; position: relative;")
+        if ($(this).children().length < 5){
+          ui.draggable.attr("style", "position: relative; z-index: 50")
+          ui.draggable.appendTo($(this)).css('order', $(ui.draggable).attr('position'));
+          countCU()
+        }
+        else {
+          alert("Only 5 mods")
+        }
       }
     });
 
     var left = 0
 
-    $("#mainContainer").on('wheel', function(event) {
-      // Calculate the delta of the scroll event.
-      var delta = event.originalEvent.wheelDelta;
-      left += delta
-      // Scroll the horizontal scroll container.
-      $('.horizontalScroll').scrollLeft(left);
-    });
+    // $("#mainContainer").on('wheel', function(event) {
+    //   // Calculate the delta of the scroll event.
+    //   var delta = event.originalEvent.wheelDelta;
+    //   left += delta
+    //   // Scroll the horizontal scroll container.
+    //   $('.horizontalScroll').scrollLeft(left);
+    // });
   
 
 }
@@ -101,9 +175,9 @@ function generateKanban(sem = user.user[0].sem ) {
 
 function getBoard(index) {
   updateData = {}
-  $(".semContainer").each(function(){
+  $(".semWrapper").each(function(){
     var title = $(this).children(":first-child").text()
-    var items = $(this).children(":not(:first-child)")
+    var items = $(this).children(":not(:first-child)").children()
     var mods = []
     $.each(items, function() {
       var module = $(this).children(":not(:first-child)")
@@ -133,7 +207,6 @@ function getBoard(index) {
   currentBoard = index
 }
 
-
 function createTab(boardName) {
   var tab = $("<div>").attr({
     class: "tab"
@@ -144,18 +217,45 @@ function createTab(boardName) {
   return tab 
 }
 
-function createModule(text, style){
+function createModule(text, clone = false){
     var module = $("<div>").attr({
       // id: "drag" + String(count),
       class: "moduleCard draggable",
-      style: style
+      position: 0
     });
-    module.draggable()
-    
+
+    if (clone) {
+      module.draggable({
+        helper: "clone",
+        dragstop: function(event, ui) {
+          ui.helper.remove();
+        },
+        revert: "invalid",
+        drag: function(event, ui) {
+          $(this).attr("position", ui.position.top)
+          $(this).css("z-index", 99)
+        }
+
+        
+      })
+    }
+    else {
+      module.draggable({
+        revert: "invalid",
+        drag: function(event, ui) {
+          $(this).attr("position", ui.position.top)
+          $(this).css("z-index", 99)
+        }
+      })
+    }
+
+
+
+  
     var course_id = text.split(' ')[0]
     var color = modColor[course_id.substring(0, 2)]
     var course_name = text.split(' ').slice(1).join(' ')
-    module.append("<div class = 'moduleColor' style = 'background-color: " + color + "';>'" + "</div")
+    module.append("<div class = 'moduleColor' style = 'background-color: " + color + ";'>" + "</div>")
     module.append("<p style = 'font-size: larger; font-weight: bold;'>" + course_id + "</p>" );
     module.append("<p>" + course_name + "</p>" );
 
@@ -234,7 +334,7 @@ function search() {
         }
         var course = faculty[i]
         text = course.label
-        module = createModule(text, style)
+        module = createModule(text, true)
 
         module.appendTo($("#searchResult"))
         count++ 
@@ -254,4 +354,12 @@ $(document).ready(function() {
   generateKanban()
 
 
+
 })
+
+$( function() {
+  $( ".droppable" ).sortable({
+    connectWith: ".droppable",
+    items: ".moduleCards"
+  });
+} );

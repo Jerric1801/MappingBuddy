@@ -30,6 +30,41 @@ body {
     flex-direction: row;
 }
 
+#filterModal {
+    display: none;
+    background-color: white;
+    position: absolute;
+    width: 50vw;
+    height: 50vh;
+    z-index: 200;
+    margin-top: 25vh;
+    margin-left: 25vw;
+    border: 1px solid black;
+}
+
+    #closeFilter {
+        width: 20%;
+        display: flex;
+        flex-direction: column;;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @keyframes openFilter {
+        from {
+            width: 0%; 
+            transform: translateX(-15vh) translateY(-15vh);  
+            opacity: 0.2;
+        }
+        /* to {
+            width: 100%;
+        } */
+    }
+
+    .filterOpen {
+        animation: openFilter 1s ease;
+    }
+
 
 #sideBar {
     position: absolute;
@@ -73,17 +108,37 @@ body {
             width: 80%;
             height: 7.5%;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
         }
 
             #searchInput input {
-                border-radius: 5px;
+                width: 80%;
+                height: 75%;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
                 border: 1px solid black;
                 padding-left: 15px;
                 font-family: Grotesk;
             }
+
+            #filterContainer {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                width: 20%;
+                height: 75%;
+                background-color: #853AD7;
+                display: flex;
+                flex-direction: center;
+                justify-content: center;
+                align-items: center;
+            }
+
+                #filterContainer img {
+                    width: 50%;
+                    object-fit:contain;
+                }
 
         #searchbar {
             width: 100%;
@@ -91,10 +146,16 @@ body {
         }
 
         #searchResult {
-            width: 80%;
+            width: 90%;
             height: 92.5%;
-            /* overflow-y: scroll;
-            scrollbar-width: none; */;
+            overflow-y: scroll;
+            overflow-x: hidden !important;
+            scrollbar-width: none;
+        }
+
+        #searchResult > div {
+            margin-top: 10px;
+            width: 95%;
         }
 
 
@@ -126,13 +187,25 @@ body {
 
     #trackBar {
         display:none;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: centert;
         width:100%;
-        height: 6vh;
+        height: 10vh;
         position: absolute;
         z-index: 99;
         margin-top: 6vh;
         background-color: #f8f8f8;
         box-shadow: 10px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .trackContainer {
+        width: 20%;
+        height: 90%;
+        font-size: 12px;
+    }
+
+    .trackContainer > p {
+        margin: 10px 0px 10px 0px;
     }
 
         #openTrack  {
@@ -142,7 +215,7 @@ body {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-top: 0.2em;
+            padding-top: 0em;
             font-family: Grotesk;
             color:#853AD7;
             font-weight: bolder;
@@ -151,9 +224,18 @@ body {
             #openTrack:hover {
                 cursor:pointer;
             }
+
+
+            @keyframes expandTrack {
+                from {
+                    height: 0%;
+                    opacity: 0;
+                }
+            }
         
             .toggleTrack {
                 display: flex !important;
+                animation: expandTrack 1s forwards ease-in-out;
             }
 
             #openTrack p {
@@ -222,17 +304,9 @@ body {
 
             .basket {
                 height: 100%;
+                width: 0%;
             }
 
-            .b1 {
-                background-color: rgb(127, 133, 255);
-                width: 30%;
-            }
-
-            .b2 {
-                background-color: bisque;
-                width: 20%;
-            }
         
         #validContainer {
             width: 25%;
@@ -327,7 +401,7 @@ body {
 
 
 
-.semContainer {
+.semWrapper {
     height: 100%;
     width: 100px;
     border: 1px solid black;
@@ -340,7 +414,19 @@ body {
     border-radius: 5px;
 }
 
-.semContainer h2 {
+.semContainer {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+
+
+.semWrapper h2 {
     font-size: 1.3em;
 }
 
@@ -360,8 +446,8 @@ body {
 
 
 .moduleCard {
-    height: 100px;
-    width: 95%;
+    height: 15vh;
+    width: 17.5vw;
     border-radius: 20px;
     background-color: white;
     border: 1px solid black;
@@ -398,3 +484,4 @@ body {
     background-color: #853AD7;
     margin-bottom: 5px;
 }
+
