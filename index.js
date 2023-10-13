@@ -65,7 +65,7 @@ function countCU() {
     var proportion = value / total * 100;
     $(`.b` + count).css({
       backgroundColor: key,
-      width: proportion+ "%"
+      width: proportion + "%"
     })
     count ++
   }
@@ -228,16 +228,6 @@ function getBoard(index) {
   currentBoard = index
 }
 
-function createTab(boardName) {
-  var tab = $("<div>").attr({
-    class: "tab"
-  })
-
-  tab.append("<p>" + boardName + "</p>")
-
-  return tab 
-}
-
 function createModule(text, clone = false, reco = false){
     var module = $("<div>").attr({
       // id: "drag" + String(count),
@@ -289,6 +279,30 @@ function createModule(text, clone = false, reco = false){
     return module
 }
 
+function createTab(boardName) {
+  var tab = $("<div>").attr({
+    class: "tab"
+  })
+
+  tab.append("<p class = 'boardTitle'>" + boardName + "</p>")
+
+  return tab 
+}
+
+function renameTab(tabIndex) {
+  console.log(tabIndex)
+  $("#tabSelection").hide();
+  $(".boardTitle").eq(tabIndex).html("<p><input></p>")
+}
+
+function duplicateTab(tabIndex) {
+  $("#tabSelection").hide();
+}
+
+function deleteTab(tabIndex) {
+  $("#tabSelection").hide();
+}
+
 function addTab(first = false){
   if (first) {
     var firstBoard = {}
@@ -314,6 +328,34 @@ function addTab(first = false){
   }
 
   Tab = createTab(board_no)
+
+  Tab.on("contextmenu", function(event) {
+    event.preventDefault();
+
+    var tabIndex = $(this).index()
+    var tabOffset = $(this).offset();
+
+    // Set the position of the selection container to be above the tab div.
+    $("#tabSelection").css({
+      top: tabOffset.top - $("#tabSelection").height(),
+      left: tabOffset.left 
+    });
+
+    $("#tabSelection").css("display", "flex");
+    
+    $(".tabSelect").on("click", function(e) {
+      var selectIndex = $(this).index()
+      if (selectIndex == 0) {
+        renameTab(tabIndex)
+      }
+      else if (selectIndex == 1) {
+        duplicateTab(tabIndex)
+      }
+      else {
+        deleteTab(tabIndex)
+      }
+    })
+  })
 
   Tab.click(function(event) {
 
@@ -391,9 +433,18 @@ $(document).ready(function() {
 
 })
 
-// $( function() {
-//   $( ".droppable" ).sortable({
-//     connectWith: ".droppable",
-//     items: ".moduleCards"
-//   });
-// } );
+$(document).on("click", function(event) {
+  // If the user clicks outside of the tab selection container, close it.
+  if (!$(event.target).closest("#tabSelection").length) {
+    $("#tabSelection").hide();
+  }
+});
+
+$(document).on('keydown', function(event) {
+  if (event.keyCode === 13) {
+    // Get the new text from the input element and update the text of the original element
+   var index = $(".boardTitle").find("input").index()
+   var text = $(".boardTitle").find("input").val()
+   $(".boardTitle").eq(index).html("<p class = 'boardTitle'>" + text + "</p>")
+  }
+});

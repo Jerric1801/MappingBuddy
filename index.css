@@ -468,7 +468,7 @@ body {
 
     .tab {
         height: 80%;
-        width: 150px;
+        width: 18vh;
         border: 1px solid black;
         border-bottom: 3px solid var(--grey);
         display: flex;
@@ -480,14 +480,14 @@ body {
 
     @keyframes slideTab {
         0% {
-            width: 50px;
+            width: 5vh;
             opacity: 0;
         }
         50% {
             opacity: 0.2;
         }
         100% {
-            width: 150px;
+            width: 18vh;
         }
     }
 
@@ -521,6 +521,35 @@ body {
 
     #addTab:hover {
         cursor: pointer;
+    }
+
+    #tabSelection {
+        position: absolute;
+        display: none;
+        width: 18vh;
+        height: 15vh;
+        flex-direction: column;
+        z-index: 80;
+        background-color: var(--grey);
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        font-size: 0.8rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .tabSelect {
+        text-align: center;
+        height: 33%;
+        width: 100%;
+        color: var(--sec);
+    }
+
+    .tabSelect:hover {
+        color: var(--grey);
+        background-color: var(--pri);
+        border: 1px solid var(--grey);
     }
 
 
