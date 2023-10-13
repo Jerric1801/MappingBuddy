@@ -19,8 +19,9 @@ const user = {
     }
   ]
 }
-const recommended = ["IS211 Interaction Design and Prototyping", "SMT.201 Geographic Information Systems for Urban Planning", "POSC101 Introduction to Public Policy", "IS216 Web Application Development II"]
+const recommended = ["IS211 Interaction Design and Prototyping", "SMT.201 Geographic Information Systems for Urban Planning", "POSC101 Introduction to Public Policy", "IS216 Web Application Development II", "IS217 Analytics Foundation", "COR1305 Spreadsheet Modeling and Analytics",  "COR2222 AI for Social Transformation"]
 var currentBoard = 0
+var tabIndex = 0
 
 //['IS', 'ACCT', 'COR', 'CS', 'SMT', 'DSA', 'ECON', 'FNCE', 'LAW', 'MGMT', 'MKTG', 'POSC', 'PPPM', 'PSYC', 'QF', 'SOCG', 'COR-MGMT', 'COR-STAT']
 const modColor = {
@@ -235,11 +236,6 @@ function createModule(text, clone = false, reco = false){
       position: 0
     });
 
-    if(reco){
-      module.attr({
-        class: "moduleCard draggable moduleRec"
-      })
-    }
 
     if (clone) {
       module.draggable({
@@ -276,6 +272,11 @@ function createModule(text, clone = false, reco = false){
     module.append("<p style = 'font-size: larger; font-weight: bold;'>" + course_id + "</p>" );
     module.append("<p>" + course_name + "</p>" );
 
+    // if(reco){
+    //   module.append("<div class = 'moduleRec'><p>Recommended</p></div>")
+    // }
+
+
     return module
 }
 
@@ -290,9 +291,22 @@ function createTab(boardName) {
 }
 
 function renameTab(tabIndex) {
-  console.log(tabIndex)
+  var boardTitle = $(".boardTitle").eq(tabIndex)
   $("#tabSelection").hide();
-  $(".boardTitle").eq(tabIndex).html("<p><input></p>")
+
+  boardTitle.text("")
+  boardTitle.append("<input type = 'text'>");
+  // boardTitle.find("input").attr("minlength", 10);
+  boardTitle.find("input").focus()
+
+
+  boardTitle.find("input").on("keyup blur", function(event) {
+    if (event.keyCode === 13 || event.type === "blur") {
+      var text = $(this).val()
+      boardTitle.text(text);
+      boardTitle.off("keyup blur")
+    }
+  })
 }
 
 function duplicateTab(tabIndex) {
@@ -332,8 +346,9 @@ function addTab(first = false){
   Tab.on("contextmenu", function(event) {
     event.preventDefault();
 
-    var tabIndex = $(this).index()
+    tabIndex = $(this).index()
     var tabOffset = $(this).offset();
+
 
     // Set the position of the selection container to be above the tab div.
     $("#tabSelection").css({
@@ -343,18 +358,7 @@ function addTab(first = false){
 
     $("#tabSelection").css("display", "flex");
     
-    $(".tabSelect").on("click", function(e) {
-      var selectIndex = $(this).index()
-      if (selectIndex == 0) {
-        renameTab(tabIndex)
-      }
-      else if (selectIndex == 1) {
-        duplicateTab(tabIndex)
-      }
-      else {
-        deleteTab(tabIndex)
-      }
-    })
+  
   })
 
   Tab.click(function(event) {
@@ -417,18 +421,31 @@ $(document).ready(function() {
   generateKanban()
 
   for (mod in recommended) {
-    console.log(recommended[mod])
     var module = createModule(recommended[mod],true, true)
     module.appendTo($("#searchResult"))
   }
+  $("#searchInput").find("input").blur(function() {
+    $("#searchResult").empty()
+    for (mod in recommended) {
+      var module = createModule(recommended[mod],true, true)
+      module.appendTo($("#searchResult"))
+    }
+  })
 
-  // $("#searchInput").blur(function() {
-  //   for (mod in recommended) {
-  //     console.log(recommended[mod])
-  //     var module = createModule(recommended[mod],true)
-  //     module.appendTo($("#searchResult"))
-  //   }
-  // })
+  $(".tabSelect").on("click", function(e) {
+    var index = tabIndex
+    var selectIndex = $(this).index()
+  
+    if (selectIndex === 0) {
+      renameTab(index)
+    }
+    else if (selectIndex === 1) {
+      duplicateTab(index)
+    }
+    else {
+      deleteTab(index)
+    }
+  })
 
 
 })
@@ -440,11 +457,12 @@ $(document).on("click", function(event) {
   }
 });
 
-$(document).on('keydown', function(event) {
-  if (event.keyCode === 13) {
-    // Get the new text from the input element and update the text of the original element
-   var index = $(".boardTitle").find("input").index()
-   var text = $(".boardTitle").find("input").val()
-   $(".boardTitle").eq(index).html("<p class = 'boardTitle'>" + text + "</p>")
-  }
-});
+// $(document).on('keydown', function(event) {
+//   if (event.keyCode === 13) {
+//     // Get the new text from the input element and update the text of the original element
+//    var index = $(".boardTitle").find("input").index()
+//    var text = $(".boardTitle").find("input").val()
+//    $(".boardTitle").eq(index).html("<p class = 'boardTitle'>" + text + "</p>")
+//   }
+// });
+
