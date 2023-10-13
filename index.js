@@ -7,8 +7,8 @@ const user = {
         "name": "Smart City Society"
       },
       "sem": {
-        "Y1S1": ["IS111 Introduction to Programming", "SMT113 Sensors and IOT", "COR2204 Science Meets Society", "IS110 Information Systems and Innovation"],
-        "Y1S2": ["IS112 Data Management", "IS217 Analytics Foundation", "COR1701 Critical Thinking in the Real World",  "CS101 Programming Fundamentals I"],
+        "Y1S1": ["IS111 Introduction to Programming", "IS110 Information Systems and Innovation", "COR-STAT1202 Introductory Statistics", "COR1301 Leadership and Team Building"],
+        "Y1S2": ["IS112 Data Management", "IS113 Web Application Development I", "COR1100 Writing and Reasoning",  "COR3001 Big Questions", "COR2100 Economics and Society"],
         "Y2S1": [],
         "Y2S2": [],
         "Y3S1": [],
@@ -19,7 +19,7 @@ const user = {
     }
   ]
 }
-
+const recommended = ["IS211 Interaction Design and Prototyping", "SMT.201 Geographic Information Systems for Urban Planning", "POSC101 Introduction to Public Policy", "IS216 Web Application Development II"]
 var currentBoard = 0
 
 //['IS', 'ACCT', 'COR', 'CS', 'SMT', 'DSA', 'ECON', 'FNCE', 'LAW', 'MGMT', 'MKTG', 'POSC', 'PPPM', 'PSYC', 'QF', 'SOCG', 'COR-MGMT', 'COR-STAT']
@@ -93,15 +93,23 @@ function toggleFocus(){
 
 function toggleTrack() {
   $("#trackBar").toggleClass("toggleTrack")
-  var arrow = $("#openTrack > p")
-  var text = arrow.text()
-
-  if (text === "v") {
-    arrow.text("^");
-  } else {
-    arrow.text("v");
+  var arrow = $("#openTrack > img")
+  if (arrow.hasClass("flipArrow")){
+    arrow.css("opacity", "0")
+    arrow.removeClass("flipArrow")
+    setTimeout(function() {
+      arrow.addClass("reverseArrow")
+      arrow.css("opacity", "1")
+    },10)
   }
-  
+  else {
+    arrow.css("opacity", "0")
+    arrow.removeClass("reverseArrow")
+    setTimeout(function() {
+      arrow.addClass("flipArrow")
+      arrow.css("opacity", "1")
+    }, 10)
+  }
 }
 
 function toggleSidebar() {
@@ -230,12 +238,18 @@ function createTab(boardName) {
   return tab 
 }
 
-function createModule(text, clone = false){
+function createModule(text, clone = false, reco = false){
     var module = $("<div>").attr({
       // id: "drag" + String(count),
       class: "moduleCard draggable",
       position: 0
     });
+
+    if(reco){
+      module.attr({
+        class: "moduleCard draggable moduleRec"
+      })
+    }
 
     if (clone) {
       module.draggable({
@@ -360,6 +374,19 @@ $(document).ready(function() {
 
   generateKanban()
 
+  for (mod in recommended) {
+    console.log(recommended[mod])
+    var module = createModule(recommended[mod],true, true)
+    module.appendTo($("#searchResult"))
+  }
+
+  // $("#searchInput").blur(function() {
+  //   for (mod in recommended) {
+  //     console.log(recommended[mod])
+  //     var module = createModule(recommended[mod],true)
+  //     module.appendTo($("#searchResult"))
+  //   }
+  // })
 
 
 })
