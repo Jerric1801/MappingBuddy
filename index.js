@@ -162,12 +162,81 @@ function generateKanban(sem = user.user[0].sem ) {
   })
 
 
+
     // Make all elements with the class "droppable" droppable
     $(".droppable").droppable({
+
+      over: function(event, ui){
+
+        const originContainer = ui.helper.parent();
+        var originIndex = $(".semContainer").index(originContainer)
+  
+        var draggablePosition = {
+          x: event.pageX,
+          y: event.pageY
+        };
+        // console.log($(this).data("originContainer"))
+        const container = $(this)
+        var containerIndex = $(".semContainer").index(container)
+
+        var cards = container.children()
+
+        if (containerIndex != originIndex) {
+          cards.each(function() {
+            console.log($(this).index())
+            cardTop = $(this).offset().top  + ui.draggable.height()
+            nextTop = $(this).offset().top + ui.draggable.height()* 2
+            // || nextTop > draggablePosition.y
+            const gap = $("<div id = 'moduleGap'></div>")
+            var cardIndex = $(this).index()
+  
+  
+            if (draggablePosition.y > cardTop && draggablePosition.y < nextTop) {
+    
+              console.log(cardIndex)
+              // $("#moduleGap").remove()
+             
+              $("#moduleGap").remove()
+  
+              gap.insertAfter(container.children().eq(cardIndex))
+              return;
+            
+            }
+  
+  
+          })
+        }
+
+
+        
+      },
+
+      on: function(){
+        $("#moduleGap").remove()
+      },
+
+
       drop: function(event, ui) {
-        if ($(this).children().length < 5){
+
+        if (($("#mainContainer").find('#moduleGap')).length != 0) {
+          var insertIndex = $("#moduleGap").index() -1
+        }
+        else {
+          var insertIndex = -1
+        }
+
+
+        $("#moduleGap").remove()
+
+        if ($(this).children().length < 6){
           ui.draggable.attr("style", "position: relative; z-index: 50")
-          ui.draggable.appendTo($(this)).css('order', $(ui.draggable).attr('position'));
+    
+          if (insertIndex <  0 || insertIndex == "undefined") {
+            ui.draggable.appendTo($(this))
+          }
+          else{
+            ui.draggable.insertAfter($(this).children().eq(insertIndex));
+          }
           setTimeout(function(){
             countCU()
           }, 250)
@@ -177,8 +246,10 @@ function generateKanban(sem = user.user[0].sem ) {
         else {
           alert("Only 5 mods")
         }
-      }
-    });
+      },
+
+  
+     });
 
     countCU()
 
@@ -261,6 +332,16 @@ function createModule(text, clone = false, reco = false){
         }
       })
     }
+
+    module.on('mousedown', function(event) {
+      // Check if the left mouse button is pressed
+      if (event.button === 0) {
+        // Set a flag to indicate that the card is being dragged
+        $(this).data('isDragging', true);
+
+        $(this).css("z-index", "99")
+      }
+    });
 
 
 
@@ -425,10 +506,12 @@ $(document).ready(function() {
     module.appendTo($("#searchResult"))
   }
   $("#searchInput").find("input").blur(function() {
-    $("#searchResult").empty()
-    for (mod in recommended) {
-      var module = createModule(recommended[mod],true, true)
-      module.appendTo($("#searchResult"))
+    if($(this).val() == "") {
+      $("#searchResult").empty()
+      for (mod in recommended) {
+        var module = createModule(recommended[mod],true, true)
+        module.appendTo($("#searchResult"))
+      }
     }
   })
 
@@ -446,6 +529,13 @@ $(document).ready(function() {
       deleteTab(index)
     }
   })
+
+  $( function() {
+    $( ".droppable" ).sortable({
+      connectWith: ".droppable",
+      items: ".moduleCards"
+    });
+  } );
 
 
 })

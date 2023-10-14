@@ -694,4 +694,16 @@ body {
     margin-bottom: 5px;
 }
 
+#moduleGap {
+    height: 12vh;
+    width: 17.5vw;
+    animation: expandGap 0.5s;
+}
+
+@keyframes expandGap {
+    from {
+        height: 8vh;
+    }
+}
+
 
