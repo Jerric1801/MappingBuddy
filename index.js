@@ -556,3 +556,6 @@ $(document).on("click", function(event) {
 //   }
 // });
 
+
+
+"Factor_Slope@1" * 0.398 + "Factor_Forest@1" * 0.253 + "Factor_Roads@1" * 0.132 + "Factor_Urban@1" * 0.109 + "Factor_Major@1" * 0.068 + "Factor_Flood@1" * 0.04
