@@ -179,6 +179,11 @@ function generateKanban(sem = user.user[0].sem ) {
         const container = $(this)
         var containerIndex = $(".semContainer").index(container)
 
+        var containerPosition = {
+          left: container.offset().left,
+          right: container.offset().left + container.width()
+        }
+
         var cards = container.children()
 
         if (containerIndex != originIndex) {
@@ -186,25 +191,33 @@ function generateKanban(sem = user.user[0].sem ) {
             console.log($(this).index())
             cardTop = $(this).offset().top  + ui.draggable.height()
             nextTop = $(this).offset().top + ui.draggable.height()* 2
+            cardLeft = $(this).offset().left   
+            cardRight = $(this).offset().left  + ui.draggable.width() 
             // || nextTop > draggablePosition.y
             const gap = $("<div id = 'moduleGap'></div>")
             var cardIndex = $(this).index()
   
-  
-            if (draggablePosition.y > cardTop && draggablePosition.y < nextTop) {
-    
+            if (draggablePosition.y > cardTop && draggablePosition.y < nextTop && cardLeft > containerPosition.left && cardRight < containerPosition.right) {
+              
               console.log(cardIndex)
               // $("#moduleGap").remove()
              
               $("#moduleGap").remove()
   
               gap.insertAfter(container.children().eq(cardIndex))
-              return;
+
+              setTimeout(100)
             
             }
   
   
           })
+        }
+
+        else {
+          console.log("origin container")
+
+          //to write ability for own container
         }
 
 
@@ -557,5 +570,3 @@ $(document).on("click", function(event) {
 // });
 
 
-
-"Factor_Slope@1" * 0.398 + "Factor_Forest@1" * 0.253 + "Factor_Roads@1" * 0.132 + "Factor_Urban@1" * 0.109 + "Factor_Major@1" * 0.068 + "Factor_Flood@1" * 0.04
