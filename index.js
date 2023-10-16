@@ -203,10 +203,12 @@ function generateKanban(sem = user.user[0].sem ) {
               // $("#moduleGap").remove()
              
               $("#moduleGap").remove()
-  
               gap.insertAfter(container.children().eq(cardIndex))
 
-              setTimeout(100)
+              setTimeout(function() {
+                $("#moduleGap").remove()
+              },1000)
+
             
             }
   
@@ -252,6 +254,7 @@ function generateKanban(sem = user.user[0].sem ) {
           }
           setTimeout(function(){
             countCU()
+            updateStorage()
           }, 250)
   
       
@@ -279,8 +282,7 @@ function generateKanban(sem = user.user[0].sem ) {
 
 }
 
-
-function getBoard(index) {
+function updateStorage() {
   updateData = {}
   $(".semWrapper").each(function(){
     var title = $(this).children(":first-child").text()
@@ -300,6 +302,14 @@ function getBoard(index) {
   var boards = JSON.parse(localStorage.getItem("Boards")) 
   boards[currentBoard]["data"]["user"][0]["sem"] = updateData
   localStorage.setItem("Boards", JSON.stringify(boards))
+}
+
+
+function getBoard(index) {
+
+  updateStorage()
+
+  var boards = JSON.parse(localStorage.getItem("Boards"))
 
   $(".tab").each(function() {
     if($(this).hasClass("selectTab")){
@@ -405,13 +415,34 @@ function renameTab(tabIndex) {
 
 function duplicateTab(tabIndex) {
   $("#tabSelection").hide();
+  var boards = JSON.parse(localStorage.getItem("Boards"))
+  var board = boards[tabIndex]["data"]
+  addTab(false, board)
 }
 
 function deleteTab(tabIndex) {
+  if (tabIndex === 0 ) {
+    alert("you cant delete this board :0")
+    return;
+  }
   $("#tabSelection").hide();
+  var boards = JSON.parse(localStorage.getItem("Boards"))
+  console.log(boards)
+  boards.splice(tabIndex, 1)
+  console.log("spliced", boards)
+
+  if ($(".tab").eq(tabIndex).hasClass("selectTab")){
+    getBoard(tabIndex-1)
+    $(".tab").eq(tabIndex).remove()
+  }
+  else {
+    $(".tab").eq(tabIndex).remove()
+  }
+  localStorage.setItem("Boards", JSON.stringify(boards))
+
 }
 
-function addTab(first = false){
+function addTab(first = false, data = user){
   if (first) {
     var firstBoard = {}
     var board_no = `board_1`
@@ -429,7 +460,7 @@ function addTab(first = false){
     
     board["No"] = board_no
     // change assignment based on functionality
-    board["data"] = user 
+    board["data"] = data
 
     boards.push(board)
     localStorage.setItem("Boards", JSON.stringify(boards))
