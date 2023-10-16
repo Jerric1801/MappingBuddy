@@ -74,6 +74,25 @@ function countCU() {
   $("#cuCounter").text(mods + "/" + total)
 }
 
+function toggleInfo(element) {
+  var courseID = $(element).parent().text()
+  var courseName = $(element).parent().next().text()
+
+  $("#courseTitle").text(courseID + " " + courseName)
+
+  var infoContainer = $("#informationModal")
+
+  if (infoContainer.css("display")=== "none") {
+    infoContainer.addClass("showInfo")
+    setTimeout(() => {
+      infoContainer.removeClass("showInfo")
+    }, 1000);
+    infoContainer.show()
+  } else {
+    infoContainer.hide()
+  }
+}
+
 function checkFilter() {
   var filterContainer = $("#filterModal")
 
@@ -86,6 +105,26 @@ function checkFilter() {
   } else {
     filterContainer.hide()
   }
+}
+
+function toggleError() {
+
+  var errorModal = $("#errorModal")
+
+  if (errorModal.css("display")=== "none") {
+    errorModal.addClass("showError")
+    setTimeout(() => {
+      errorModal.removeClass("showError")
+    }, 1000);
+    errorModal.show()
+  } else {
+    errorModal.hide()
+  }
+}
+
+function raiseError(errorMsg) {
+  $(".errorMessage").text(errorMsg)
+  toggleError()
 }
 
 function toggleFocus(){
@@ -260,7 +299,7 @@ function generateKanban(sem = user.user[0].sem ) {
       
         }
         else {
-          alert("Only 5 mods")
+          raiseError("You cannot take more than 6 mods in one semester")
         }
       },
 
@@ -303,7 +342,6 @@ function updateStorage() {
   boards[currentBoard]["data"]["user"][0]["sem"] = updateData
   localStorage.setItem("Boards", JSON.stringify(boards))
 }
-
 
 function getBoard(index) {
 
@@ -372,8 +410,9 @@ function createModule(text, clone = false, reco = false){
     var course_id = text.split(' ')[0]
     var color = modColor[course_id.substring(0, 2)]
     var course_name = text.split(' ').slice(1).join(' ')
+    var info_tag = "<img onclick = 'toggleInfo(this)' src = './img/info.png'>"
     module.append("<div class = 'moduleColor' style = 'background-color: " + color + ";'>" + "</div>")
-    module.append("<p style = 'font-size: larger; font-weight: bold;'>" + course_id + "</p>" );
+    module.append("<p style = 'font-size: larger; font-weight: bold;'>"  + course_id+ " " +  info_tag + "</p>" );
     module.append("<p>" + course_name + "</p>" );
 
     // if(reco){
@@ -422,7 +461,7 @@ function duplicateTab(tabIndex) {
 
 function deleteTab(tabIndex) {
   if (tabIndex === 0 ) {
-    alert("you cant delete this board :0")
+    raiseError("You must have at least 1 tab open")
     return;
   }
   $("#tabSelection").hide();

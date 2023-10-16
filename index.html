@@ -6,9 +6,24 @@
         <script src = "./index.js"></script>
     </head>
     <body>
-        <div id = "filterModal">
+        <div id = "modBin">
+            
+        </div>
+        <div id = "informationModal" class = "modalBox">
+            <p id = "courseTitle"></p>
+            <div id = "closeInfo" onclick = "toggleInfo()">
+                <p>X</p>
+            </div>
+        </div>
+        <div id = "filterModal" class = "modalBox">
             <div id = "closeFilter" onclick = "checkFilter()">
                 <p>X</p>
+            </div>
+        </div>
+        <div id = "errorModal" class = "modalBox">
+            <p class = "errorMessage"></p>
+            <div id = "errorClose" onclick = "toggleError()">
+                <p>close</p>
             </div>
         </div>
         <div id = "kanbanTop">
