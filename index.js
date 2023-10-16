@@ -22,6 +22,8 @@ const user = {
 const recommended = ["IS211 Interaction Design and Prototyping", "SMT.201 Geographic Information Systems for Urban Planning", "POSC101 Introduction to Public Policy", "IS216 Web Application Development II", "IS217 Analytics Foundation", "COR1305 Spreadsheet Modeling and Analytics",  "COR2222 AI for Social Transformation"]
 var currentBoard = 0
 var tabIndex = 0
+var semIndex = 0
+var cardIndex = 0
 
 //['IS', 'ACCT', 'COR', 'CS', 'SMT', 'DSA', 'ECON', 'FNCE', 'LAW', 'MGMT', 'MKTG', 'POSC', 'PPPM', 'PSYC', 'QF', 'SOCG', 'COR-MGMT', 'COR-STAT']
 const modColor = {
@@ -75,8 +77,13 @@ function countCU() {
 }
 
 function toggleInfo(element) {
-  var courseID = $(element).parent().text()
-  var courseName = $(element).parent().next().text()
+  $("#modSelection").hide();
+
+  var sem = $(".semContainer").eq(semIndex)
+  var card = sem.children().eq(cardIndex)
+
+  var courseID = card.children().eq(1).text()
+  var courseName = card.children().eq(2).text()
 
   $("#courseTitle").text(courseID + " " + courseName)
 
@@ -361,6 +368,39 @@ function getBoard(index) {
   currentBoard = index
 }
 
+function toggleModSelect(element) {
+
+  var card = $(element).closest(".moduleCard")
+
+  var semContainer = $(element).closest(".semContainer");
+
+  semIndex = semContainer.index(".semContainer");
+
+  cardIndex = semContainer.find(card).index()
+
+
+  var modSelect = $(element).offset()
+
+  // Set the position of the selection container to be above the tab div.
+  $("#modSelection").css({
+    top: modSelect.top + $(element).height() * 3/2,
+    left: modSelect.left 
+  });
+
+  $("#modSelection").css("display", "flex");
+  
+}
+
+function deleteModule() {
+  $("#modSelection").hide();
+  var sem = $(".semContainer").eq(semIndex)
+  var card = sem.children().eq(cardIndex)
+  card.remove()
+  setTimeout(function() {
+    countCU()
+  }, 200)
+}
+
 function createModule(text, clone = false, reco = false){
     var module = $("<div>").attr({
       // id: "drag" + String(count),
@@ -377,6 +417,7 @@ function createModule(text, clone = false, reco = false){
         },
         revert: "invalid",
         drag: function(event, ui) {
+          $("#modSelection").hide();
           $(this).attr("position", ui.position.top)
           $(this).css("z-index", 50)
         }
@@ -388,6 +429,7 @@ function createModule(text, clone = false, reco = false){
       module.draggable({
         revert: "invalid",
         drag: function(event, ui) {
+          $("#modSelection").hide();
           $(this).attr("position", ui.position.top)
           $(this).css("z-index",50)
         }
@@ -410,10 +452,10 @@ function createModule(text, clone = false, reco = false){
     var course_id = text.split(' ')[0]
     var color = modColor[course_id.substring(0, 2)]
     var course_name = text.split(' ').slice(1).join(' ')
-    var info_tag = "<img onclick = 'toggleInfo(this)' src = './img/info.png'>"
-    module.append("<div class = 'moduleColor' style = 'background-color: " + color + ";'>" + "</div>")
-    module.append("<p style = 'font-size: larger; font-weight: bold;'>"  + course_id+ " " +  info_tag + "</p>" );
-    module.append("<p>" + course_name + "</p>" );
+    // var info_tag = "<img onclick = 'toggleInfo(this)' src = './img/info.png'>"
+    module.append("<div class = 'moduleTop' ><div class = 'moduleColor' style = 'background-color: " + color + ";'>" + "</div><img onclick = 'toggleModSelect(this)' src = './img/grey_dots.png'></div>")
+    module.append("<p style = 'font-size: 1.5em; font-weight: bold;'>" + course_id + "</p>" );
+    module.append("<p style = 'font-size: 1.1em; '>" +  course_name + "</p>" );
 
     // if(reco){
     //   module.append("<div class = 'moduleRec'><p>Recommended</p></div>")
@@ -423,12 +465,28 @@ function createModule(text, clone = false, reco = false){
     return module
 }
 
+function toggleTabSelect(element){
+    element.preventDefault
+    tabIndex = $(element).parent().index()
+    var tabOffset = $(element).parent().offset();
+
+    // Set the position of the selection container to be above the tab div.
+    $("#tabSelection").css({
+      top: tabOffset.top - $("#tabSelection").height(),
+      left: tabOffset.left 
+    });
+
+    $("#tabSelection").css("display", "flex");
+    
+}
+
 function createTab(boardName) {
   var tab = $("<div>").attr({
     class: "tab"
   })
 
   tab.append("<p class = 'boardTitle'>" + boardName + "</p>")
+  tab.append("<img onclick = 'toggleTabSelect(this)' src = './img/grey_dots.png'>")
 
   return tab 
 }
@@ -534,6 +592,7 @@ function addTab(first = false, data = user){
   Tab.appendTo($("#tabContainer"))
 
   if (first){
+    // $(".tab").eq(0).prop("src", "./img/dots.png");
     $(".tab").eq(0).addClass("selectTab")
   }
 }
@@ -620,15 +679,26 @@ $(document).ready(function() {
     });
   } );
 
+  $("#searchResult").on("scroll", function(event) {
+    $("#modSelection").hide();
+  })
+
 
 })
 
 $(document).on("click", function(event) {
   // If the user clicks outside of the tab selection container, close it.
-  if (!$(event.target).closest("#tabSelection").length) {
+  if (!($(event.target).closest("#tabSelection").length||$(event.target).closest(".tab").length)) {
     $("#tabSelection").hide();
   }
+  
+  if (!($(event.target).closest("#modSelection").length||$(event.target).closest(".moduleTop > img").length)) {
+    $("#modSelection").hide();
+  }
 });
+
+
+
 
 // $(document).on('keydown', function(event) {
 //   if (event.keyCode === 13) {

@@ -5,7 +5,27 @@
     --sec: #f8f8f8;
     /* charcoal grey */
     --grey: #333333;
+    /* reading grey */
+    --read: #212427;
  }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #999999;
+}
 
 @font-face {
     font-family: Grotesk;
@@ -40,14 +60,15 @@ body {
 }
 
 #modBin {
+    display:none;
     position: absolute;
-    width: 10vh;
-    height: 10vh;
+    width: 8vh;
+    height: 8vh;
     border-radius: 100%;
     box-shadow: 0px 2px 4px 0px black;
     background-color: white;
     z-index: 75;
-    margin-top: 5vh;
+    margin-top: 8vh;
     margin-left: 47.5vw
 }
 
@@ -290,9 +311,9 @@ body {
         width:100%;
         height: 10vh;
         position: absolute;
-        z-index: 99;
+        z-index: 100;
         margin-top: 6vh;
-        background-color: var(--sec);
+        background-color: var(--pri);
         box-shadow: 10px 2px 4px rgba(0, 0, 0, 0.2);
     }
     .trackContainer {
@@ -383,7 +404,7 @@ body {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        background-color: var(--sec);
+        background-color: var(--pri);
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
@@ -428,10 +449,11 @@ body {
                 width:60%;
                 height:30%;
                 border-radius: 20px;
-                border: 0.5px solid black;
+                border: 1px solid var(--grey);
                 overflow: hidden;
                 display: flex;
                 flex-direction: row;
+                /* box-shadow: 2px 2px 2px #333333; */
 
             }
 
@@ -507,12 +529,13 @@ body {
 
     #tabBar {
         height: 5vh;
-        border: 1px solid black;
+        /* border: 1px solid var(--read); */
         width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
+         box-shadow: 3px 3px 2px 0.5px #333333;
     }
 
     #tabContainer {
@@ -527,15 +550,31 @@ body {
     .tab {
         height: 80%;
         width: 18vh;
-        border: 1px solid black;
+        border: 0.5px solid var(--read);
         border-bottom: 3px solid var(--grey);
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-between;
+        align-items: center;  
         margin-left: 3px;
-        animation: slideTab 1s ease-in-out;
+        animation: slideTab 0.75s ease-in-out;
         overflow:hidden;
+        text-align: center;
+        /* box-shadow: 2px 2px 2px 4px #333333; */
     }
+
+    .tab  p {
+        text-align: left;
+        margin-left: 0.3em;
+    }
+
+    .tab img {
+        object-fit: contain;
+        width: 1.25vw;
+      }
+      
+      .tab img:hover {
+        filter: invert(100%);
+      }
 
     @keyframes slideTab {
         0% {
@@ -564,6 +603,10 @@ body {
         background-color: var(--grey);
         color: white;
         border-bottom: 3px solid rgb(255, 255, 255);
+    }
+
+    .selectTab img {
+        filter: invert(100%);
     }
 
     #addTab {
@@ -609,7 +652,7 @@ body {
         text-align: center;
         height: 33%;
         width: 100%;
-        color: var(--sec);
+        color: var(--sec);;
     }
 
     .tabSelect:hover {
@@ -640,35 +683,39 @@ body {
 .semWrapper {
     height: 100%;
     width: 100px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
+    justify-content: space-around;
+    gap: 2.5%;
     flex: 1;
     border-radius: 5px;
+    background-color: var(--sec);
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
 }
 
 .semContainer {
-    height: 80%;
+    height: 90%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
-    overflow:hidden
+    gap: 0.45em;
+    overflow:hidden;
+    
 }
 
 
 .semWrapper h2 {
     font-size: 1.3em;
+    letter-spacing: 2px;
 }
 
 .semTitle {
     width: 30%;
-    height: 40px;
+    height: 5%;
     background-color: var(--grey);
     color: white;
     display: flex;
@@ -678,6 +725,7 @@ body {
     border-radius: 5px;
     margin-top: 10px;
     margin-right: 60%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -686,7 +734,6 @@ body {
     width: 17.5vw;
     border-radius: 20px;
     background-color: white;
-    border: 1px solid black;
     cursor: move; /* fallback if grab cursor is unsupported */
     cursor: grab;
     cursor: -moz-grab;
@@ -698,7 +745,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
     /* animation: fade 0.5s ease-in-out; */
 }
 
@@ -715,7 +762,6 @@ body {
     transform: translateX(70%) translateY(460%);
   }
 
-
   
 
 
@@ -731,7 +777,8 @@ body {
 
 .moduleCard p {
     font-family: Inter;
-    margin: 5px 0px 0px 5px;
+    color: var(--read);
+    margin: 0.6vh 0.2em 0em 1vw;
     padding: 0px;
     text-align:left;
 }
@@ -742,12 +789,12 @@ body {
     width: 2.75vh;
 }
 
-.moduleCard img:hover {
+/* .moduleCard img:hover {
     vertical-align: middle;
     width: 3.5vh;
     cursor: pointer;
     font-weight: bolder;
-}
+} */
 
 .moduleCard:active {
     cursor: grabbing;
@@ -759,12 +806,71 @@ body {
     transform: translateZ(100px);
 } */
 
-.moduleColor {
+.moduleTop {
     width: 100%;
-    height: 15%;
-    background-color: #FFA41C;
-    margin-bottom: 5px;
+    height: 25%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 0.1vw;
 }
+
+    .moduleTop img {
+        width: 8.5%;
+        height: 70.5%;
+        margin-top: 0.8em;
+        margin-right: 0.5em;
+    }
+
+    #modSelection {
+        position: absolute;
+        display: none;
+        width: 18vh;
+        height: 10vh;
+        flex-direction: column;
+        z-index: 150;
+        background-color: var(--pri);
+        border-radius: 10px;
+        font-size: 0.8rem;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+        .modSelect {
+            font-size: 1.1em;
+            font-weight: 550;
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .modSelect:hover {
+            background-color: var(--sec);
+            cursor: pointer;
+        }
+
+
+    .moduleColor {
+        width: 12.5%;
+        height: 25%;
+        background-color: #FFA41C;
+        margin-bottom: 5px;
+        margin-top: 1em;
+        margin-left: 0.7em;
+        border-radius: 5px;
+        animation: fadeColor 2s ease-out;
+    }
+
+    @keyframes fadeColor {
+        from {
+            opacity: 0.75
+        }
+        to {
+            opacity: 1
+        }
+    }
 
 #moduleGap {
     height: 12vh;

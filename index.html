@@ -9,23 +9,38 @@
         <div id = "modBin">
             
         </div>
+
+        <!-- absolute items -->
+        <div id = "modSelection">
+            <div class = "modSelect" onclick = "toggleInfo(this)">
+                <p>Get Info</p>
+            </div>
+            <div class = "modSelect" onclick = "deleteModule(this)">
+                <p>Delete</p>
+            </div>
+        </div>
+
         <div id = "informationModal" class = "modalBox">
             <p id = "courseTitle"></p>
             <div id = "closeInfo" onclick = "toggleInfo()">
                 <p>X</p>
             </div>
         </div>
+
         <div id = "filterModal" class = "modalBox">
             <div id = "closeFilter" onclick = "checkFilter()">
                 <p>X</p>
             </div>
         </div>
+
         <div id = "errorModal" class = "modalBox">
             <p class = "errorMessage"></p>
             <div id = "errorClose" onclick = "toggleError()">
                 <p>close</p>
             </div>
         </div>
+        <!-- absolute items -->
+
         <div id = "kanbanTop">
 
         </div>
