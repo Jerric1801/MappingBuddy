@@ -78,6 +78,16 @@ body {
     z-index: 101;
 }
 
+#cuModal {
+    width: 50vw;
+    height: 70vh;
+    left: 25vw;
+    top: 15vh;
+    background-color: var(--pri);
+    filter:none;
+}
+
+
 #informationModal {
     width: 80vw;
     height: 80vh;
@@ -118,9 +128,9 @@ body {
         } */
     }
 
-    .filterOpen {
+    /* .filterOpen {
         animation: openFilter 1s ease;
-    }
+    } */
 
 #errorModal {
     width: 50vw;
@@ -392,8 +402,7 @@ body {
 
             #openTrack img {
                 object-fit: contain;
-                width: 20%;
-                height: 20%;
+                width: 15%;
             }
 
             @keyframes flipArrow {
@@ -408,12 +417,12 @@ body {
             }
 
             .flipArrow {
-                animation: flipArrow 1s;
+                animation: flipArrow 0.5s;
                 transform: rotate(180deg);
             }
 
             .reverseArrow {
-                animation: flipArrow 1s alternate-reverse;
+                animation: flipArrow 0.5s alternate-reverse;
                 transform: rotate(0deg);
             }
 
@@ -500,11 +509,12 @@ body {
             }
 
             #cuInformation img {
-                width: 1.75vw;
+                width: 1.55vw;
             }
 
             #cuInformation img:hover {
                 cursor:pointer;
+                width: 1.75vw;
             }
 
         
@@ -842,6 +852,17 @@ body {
 /* .moduleCard:hover {
     transform: translateZ(100px);
 } */
+
+    .shrink {
+        width:12vw !important;
+        /* font-size: smaller; */
+        overflow-wrap: break-word;
+    }
+
+    .shrink > p {
+        overflow-wrap: break-word!important;
+        /* font-size: small; */
+    }
 
 .moduleTop {
     width: 100%;

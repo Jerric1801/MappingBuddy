@@ -122,6 +122,23 @@ function checkFilter() {
   }
 }
 
+function toggleCU() {
+
+  var cuModal = $("#cuModal")
+  var modalWrapper = $("#modalWrapper")
+
+  if (cuModal.css("display")=== "none") {
+    $(".moduleCard").addClass("modalOpen")
+    cuModal.show()
+    modalWrapper.show()
+  } else {
+    $(".moduleCard").removeClass("modalOpen")
+    cuModal.hide()
+    modalWrapper.hide()
+  }
+}
+
+
 function toggleError() {
 
   var errorModal = $("#errorModal")
@@ -148,7 +165,17 @@ function raiseError(errorMsg) {
 }
 
 function toggleFocus(){
-  $("#mainBoard").toggleClass("focus");
+  var main = $("#mainBoard")
+  var cards = $(".moduleCard")
+  main.toggleClass("focus");
+
+  if (main.hasClass('focus')) {
+     cards.addClass("shrink")
+    }
+  else {
+    cards.removeClass("shrink")
+  }
+  
 }
 
 function toggleTrack() {
@@ -265,7 +292,7 @@ function generateKanban(sem = user.user[0].sem ) {
                   $("#moduleGap").remove();
                   clearInterval(interval)
                 }
-              }, 5000)
+              }, 3000)
             
             }
   
@@ -542,7 +569,6 @@ function deleteTab(tabIndex) {
   var boards = JSON.parse(localStorage.getItem("Boards"))
   console.log(boards)
   boards.splice(tabIndex, 1)
-  console.log("spliced", boards)
 
   if ($(".tab").eq(tabIndex).hasClass("selectTab")){
     getBoard(tabIndex-1)
@@ -643,10 +669,16 @@ function search() {
         text = course.label
         if (recommended.includes(text)){
           module = createModule(text, true, true)
+          if ($("#mainBoard").hasClass("focus")) {
+            module.addClass("shrink")
+          }
           module.prependTo($("#searchResult"))
         }
         else{
           module = createModule(text, true)
+          if ($("#mainBoard").hasClass("focus")) {
+            module.addClass("shrink")
+          }
           module.appendTo($("#searchResult"))
         }
 

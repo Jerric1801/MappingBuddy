@@ -24,10 +24,16 @@
             </div>
         </div>
 
+        <div id = "cuModal" class = "modalBox">
+            <div class = "closeModal" onclick = "toggleCU()">
+                <p>X</p>
+            </div>
+    </div>
+
         <div id = "informationModal" class = "modalBox">
                 <p id = "courseTitle"></p>
                 <a id = "coursePage" target="_blank"></a>
-                <div id = "closeInfo" onclick = "toggleInfo()">
+                <div class = "closeModal" onclick = "toggleInfo()">
                     <p>X</p>
                 </div>
         </div>
@@ -41,7 +47,7 @@
         <div id = "errorModal" class = "modalBox">
             <p class = "errorMessage"></p>
             <div id = "errorClose" onclick = "toggleError()">
-                <p>close</p>
+                <p>X</p>
             </div>
         </div>
         <!-- absolute items -->
@@ -94,7 +100,7 @@
                             <p id = "cuCounter"></p>
                         </div>
                         <div id ="cuInformation">
-                            <img src = "./img/info.png">
+                            <img src = "./img/info.png" onclick = "toggleCU()">
                         </div>
                     </div>
                     <div id = "validContainer">
