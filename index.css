@@ -49,7 +49,7 @@ body {
 }
 
 #kanbanTop {
-    height: 6vh;
+    height: 5vh;
     width: 100%;
     background-color: var(--sec);
 }
@@ -138,6 +138,11 @@ body {
     border-radius: 20px;
     background-color: var(--pri);
     border: 1px solid black;
+    /* pointer-events: none; */
+}
+
+.modalOpen {
+    pointer-events: none;
 }
 
 
@@ -696,7 +701,7 @@ body {
 }
 
 .semContainer {
-    height: 90%;
+    height: 87.5%;
     width: 100%;
     display: flex;
     flex-direction: column;

@@ -86,16 +86,18 @@ function toggleInfo(element) {
   var courseName = card.children().eq(2).text()
 
   $("#courseTitle").text(courseID + " " + courseName)
+  $("#coursePage").text("Find out more here")
+  var url = "https://smu.sg/cdd-" + courseID 
+  $("#coursePage").prop("href", url)
 
   var infoContainer = $("#informationModal")
 
   if (infoContainer.css("display")=== "none") {
-    infoContainer.addClass("showInfo")
-    setTimeout(() => {
-      infoContainer.removeClass("showInfo")
-    }, 1000);
+    // infoContainer.addClass("showInfo")
+    $(".moduleCard").addClass("modalOpen")
     infoContainer.show()
   } else {
+    $(".moduleCard").removeClass("modalOpen")
     infoContainer.hide()
   }
 }
@@ -119,12 +121,14 @@ function toggleError() {
   var errorModal = $("#errorModal")
 
   if (errorModal.css("display")=== "none") {
+    $(".moduleCard").addClass("modalOpen")
     errorModal.addClass("showError")
     setTimeout(() => {
       errorModal.removeClass("showError")
     }, 1000);
     errorModal.show()
   } else {
+    $(".moduleCard").removeClass("modalOpen")
     errorModal.hide()
   }
 }
@@ -237,24 +241,22 @@ function generateKanban(sem = user.user[0].sem ) {
             console.log($(this).index())
             cardTop = $(this).offset().top  + ui.draggable.height()
             nextTop = $(this).offset().top + ui.draggable.height()* 2
-            cardLeft = $(this).offset().left   
+            cardLeft = $(this).offset().left
             cardRight = $(this).offset().left  + ui.draggable.width() 
             // || nextTop > draggablePosition.y
             const gap = $("<div id = 'moduleGap'></div>")
             var cardIndex = $(this).index()
   
             if (draggablePosition.y > cardTop && draggablePosition.y < nextTop && cardLeft > containerPosition.left && cardRight < containerPosition.right) {
-              
-              console.log(cardIndex)
-              // $("#moduleGap").remove()
-             
               $("#moduleGap").remove()
               gap.insertAfter(container.children().eq(cardIndex))
 
-              setTimeout(function() {
-                $("#moduleGap").remove()
-              },1000)
-
+              const interval = setInterval(function(){
+                if (draggablePosition.y < cardTop || draggablePosition.y > nextTop || cardLeft < containerPosition.left || cardRight > containerPosition.right) {
+                  $("#moduleGap").remove();
+                  clearInterval(interval)
+                }
+              }, 5000)
             
             }
   
@@ -278,7 +280,7 @@ function generateKanban(sem = user.user[0].sem ) {
 
 
       drop: function(event, ui) {
-
+        // clearInterval(interval)
         if (($("#mainContainer").find('#moduleGap')).length != 0) {
           var insertIndex = $("#moduleGap").index() -1
         }
