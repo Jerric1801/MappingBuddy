@@ -97,9 +97,12 @@ body {
     filter:none;
 }
 
-
     .showInfo {
         display: flex;
+    }
+
+    #courseTitle {
+        font-size: 1.5em
     }
 
 #filterModal {

@@ -95,11 +95,11 @@ function toggleInfo(element) {
 
   if (infoContainer.css("display")=== "none") {
     // infoContainer.addClass("showInfo")
-    $(".moduleCard").addClass("modalOpen")
+    // $(".moduleCard").addClass("modalOpen")
     modalWrapper.show()
     infoContainer.show()
   } else {
-    $(".moduleCard").removeClass("modalOpen")
+    // $(".moduleCard").removeClass("modalOpen")
     modalWrapper.hide()
     infoContainer.hide()
   }
