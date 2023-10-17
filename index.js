@@ -91,19 +91,23 @@ function toggleInfo(element) {
   $("#coursePage").prop("href", url)
 
   var infoContainer = $("#informationModal")
+  var modalWrapper = $("#modalWrapper")
 
   if (infoContainer.css("display")=== "none") {
     // infoContainer.addClass("showInfo")
     $(".moduleCard").addClass("modalOpen")
+    modalWrapper.show()
     infoContainer.show()
   } else {
     $(".moduleCard").removeClass("modalOpen")
+    modalWrapper.hide()
     infoContainer.hide()
   }
 }
 
 function checkFilter() {
   var filterContainer = $("#filterModal")
+  var modalWrapper = $("#modalWrapper")
 
   if (filterContainer.css("display")=== "none") {
     filterContainer.addClass("filterOpen")
@@ -111,14 +115,17 @@ function checkFilter() {
       filterContainer.removeClass("filterOpen")
     }, 1000);
     filterContainer.show()
+    modalWrapper.show()
   } else {
     filterContainer.hide()
+    modalWrapper.hide()
   }
 }
 
 function toggleError() {
 
   var errorModal = $("#errorModal")
+  var modalWrapper = $("#modalWrapper")
 
   if (errorModal.css("display")=== "none") {
     $(".moduleCard").addClass("modalOpen")
@@ -127,9 +134,11 @@ function toggleError() {
       errorModal.removeClass("showError")
     }, 1000);
     errorModal.show()
+    modalWrapper.show()
   } else {
     $(".moduleCard").removeClass("modalOpen")
     errorModal.hide()
+    modalWrapper.hide()
   }
 }
 
@@ -269,9 +278,6 @@ function generateKanban(sem = user.user[0].sem ) {
 
           //to write ability for own container
         }
-
-
-        
       },
 
       on: function(){
@@ -422,9 +428,14 @@ function createModule(text, clone = false, reco = false){
           $("#modSelection").hide();
           $(this).attr("position", ui.position.top)
           $(this).css("z-index", 50)
+        },
+        start: function() {
+          $(this).css("pointer-events", "none");
+        },
+        stop: function() {
+          $(this).css("pointer-events", "auto");
         }
 
-        
       })
     }
     else {
@@ -448,14 +459,17 @@ function createModule(text, clone = false, reco = false){
       }
     });
 
-
-
-  
     var course_id = text.split(' ')[0]
     var color = modColor[course_id.substring(0, 2)]
     var course_name = text.split(' ').slice(1).join(' ')
     // var info_tag = "<img onclick = 'toggleInfo(this)' src = './img/info.png'>"
-    module.append("<div class = 'moduleTop' ><div class = 'moduleColor' style = 'background-color: " + color + ";'>" + "</div><img onclick = 'toggleModSelect(this)' src = './img/grey_dots.png'></div>")
+
+    if(reco) {
+      module.append("<div class = 'moduleTop' ><div class = 'moduleColor' style = 'background-color: " + color + ";'>" + "</div><img class = 'recoGIF' onclick = 'toggleModSelect(this)' src = './img/thumbs.gif'><img onclick = 'toggleModSelect(this)' src = './img/grey_dots.png'></div>")
+    }
+    else {
+      module.append("<div class = 'moduleTop' ><div class = 'moduleColor' style = 'background-color: " + color + ";'>" + "</div><img onclick = 'toggleModSelect(this)' src = './img/grey_dots.png'></div>")
+    }
     module.append("<p style = 'font-size: 1.5em; font-weight: bold;'>" + course_id + "</p>" );
     module.append("<p style = 'font-size: 1.1em; '>" +  course_name + "</p>" );
 
@@ -627,9 +641,15 @@ function search() {
       for (i in faculty){
         var course = faculty[i]
         text = course.label
-        module = createModule(text, true)
+        if (recommended.includes(text)){
+          module = createModule(text, true, true)
+          module.prependTo($("#searchResult"))
+        }
+        else{
+          module = createModule(text, true)
+          module.appendTo($("#searchResult"))
+        }
 
-        module.appendTo($("#searchResult"))
       }
     }
 

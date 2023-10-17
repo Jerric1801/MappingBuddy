@@ -9,6 +9,11 @@
 
         </div> -->
     <body>
+
+        <div id = "modalWrapper">
+
+
+        </div>
         <!-- absolute items -->
         <div id = "modSelection">
             <div class = "modSelect" onclick = "toggleInfo(this)">
@@ -20,11 +25,11 @@
         </div>
 
         <div id = "informationModal" class = "modalBox">
-            <p id = "courseTitle"></p>
-            <a id = "coursePage" target="_blank"></a>
-            <div id = "closeInfo" onclick = "toggleInfo()">
-                <p>X</p>
-            </div>
+                <p id = "courseTitle"></p>
+                <a id = "coursePage" target="_blank"></a>
+                <div id = "closeInfo" onclick = "toggleInfo()">
+                    <p>X</p>
+                </div>
         </div>
 
         <div id = "filterModal" class = "modalBox">
@@ -93,6 +98,7 @@
                         </div>
                     </div>
                     <div id = "validContainer">
+                        <p>Major/Track Selector</p>
                         <div id = "openTrack" onclick = "toggleTrack()">
                             <img src = "img/arrow-down.png">
                         </div>
