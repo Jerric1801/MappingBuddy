@@ -78,6 +78,66 @@ body {
     z-index: 101;
 }
 
+    .headerModal {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 15%;
+    }
+
+    .headerTitle {
+        padding-left: 3vw;
+        width: 90%;
+        font-size: 1.3em;
+    }
+
+    .closeModal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 10vw;
+    }
+
+    .closeModal:hover {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    .contentModal {
+        overflow-y:scroll;
+        width: inherit;
+        height: 85%;
+        background-color: var(--sec);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items:center;
+        position:relative;
+    }
+
+    .basketModal {
+        position:relative;
+        display: flex;
+        flex-direction: column;
+        width: 87.5%;
+        background-color: var(--pri);
+        box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.2);
+        /* border: 0.3px solid var(--grey) */
+        border-radius: 10px;
+    }
+
+    .barModal {
+        height: 10vh;
+        /* background-color: #FFA41C; */
+    } 
+
+    .basketContent {
+        display: none;
+        height: 30vh;
+        overflow-y:scroll;
+    }
+
 #cuModal {
     width: 50vw;
     height: 70vh;
@@ -161,7 +221,7 @@ body {
     background-color: var(--pri);
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.531);
     border: 0.3px solid #b3b3b3;
-    /* pointer-events: none; */
+    overflow:hidden;
 }
 
 .modalOpen {
@@ -778,6 +838,20 @@ body {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+    .expandSemTitle {
+        animation: expandSemTitle 1s forwards;
+        width: 50%;
+    }
+
+    @keyframes expandSemTitle  {
+        from {
+            width: 35%;
+        }
+        to {
+            width: 50%;
+        }
+    }
+
 
 .moduleCard {
     height: 12vh;
@@ -857,7 +931,7 @@ body {
 } */
 
     .shrink {
-        width:12vw !important;
+        width:10.5vw !important;
         /* font-size: smaller; */
         overflow-wrap: break-word;
     }
@@ -911,11 +985,15 @@ body {
             width: 100%;
             text-align: center;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .modSelect:hover {
             background-color: var(--sec);
             cursor: pointer;
+            border-radius: 10px;
         }
 
 

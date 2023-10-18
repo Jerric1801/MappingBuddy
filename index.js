@@ -168,11 +168,17 @@ function toggleFocus(){
   var main = $("#mainBoard")
   var cards = $(".moduleCard")
   main.toggleClass("focus");
+  // $("#focusKanban img").prop("src", "./img/fullscreen (1).png")
 
   if (main.hasClass('focus')) {
+    $("#focusKanban img").prop("src", "./img/fullscreen (1).png")
+    $(".semTitle").addClass("expandSemTitle")
      cards.addClass("shrink")
     }
   else {
+    $("#focusKanban img").prop("src", "./img/fullscreen.png")
+    // $("#focusKanban img").prop("src", "./img/fullscreen (1).png")
+    $(".semTitle").removeClass("expandSemTitle")
     cards.removeClass("shrink")
   }
   
