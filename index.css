@@ -84,6 +84,9 @@ body {
         align-items: center;
         justify-content: space-between;
         height: 15%;
+        /* border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px; */
+        border-bottom: 0.33px solid #333333;
     }
 
     .headerTitle {
@@ -105,18 +108,22 @@ body {
     }
 
     .contentModal {
+        font-family: Inter;
+        padding-top: 3vh;
         overflow-y:scroll;
         width: inherit;
         height: 85%;
         background-color: var(--sec);
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: flex-start;
+        gap: 0.1vh;
         align-items:center;
         position:relative;
     }
 
     .basketModal {
+        font-family: Inter;
         position:relative;
         display: flex;
         flex-direction: column;
@@ -124,25 +131,74 @@ body {
         background-color: var(--pri);
         box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.2);
         /* border: 0.3px solid var(--grey) */
-        border-radius: 10px;
+        /* border-radius: 10px; */
     }
 
     .barModal {
         height: 10vh;
-        /* background-color: #FFA41C; */
+        /* background-color: #FFA41C; */  
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
     } 
+
+    .barModalSelect {
+        background-color: var(--sec) !important;
+    }
+
+    .barModal:hover {
+        background-color: var(--sec);
+    }
+
+        .barTitle {
+            width: 87.5%;
+            height: 40%;
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .barContainer {
+            width: 87.5%;
+            height: 60%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 1vw;
+        }
+
+
 
     .basketContent {
         display: none;
-        height: 30vh;
         overflow-y:scroll;
+        height: 30vh;
     }
+
+        .accordion {
+            animation: 1s accordion forwards;
+        }
+
+
+        @keyframes accordion {
+            from {
+                height: 0vh;
+            }
+            to {
+                height: 30vh;
+            }
+        }
+        
 
 #cuModal {
     width: 50vw;
-    height: 70vh;
+    height: 80vh;
     left: 25vw;
-    top: 15vh;
+    top: 10vh;
     background-color: var(--pri);
     filter:none;
 }

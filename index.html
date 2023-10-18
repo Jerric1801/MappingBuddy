@@ -28,23 +28,105 @@
             <div class = "headerModal">
 
                 <div class = "headerTitle">
-                    <p>Core Curriculum</p>
+                    <p>Course Units</p>
                 </div>
                 <div class = "closeModal" onclick = "toggleCU()">
                     <p>X</p>
                 </div>
             </div>
             <div class = "contentModal">
-                <div class = "basketModal">
-                    <div class = "barModal">
-                        <p>dsfd</p>
+                <div style = "border-top-right-radius: 10px;border-top-left-radius: 10px;" class = "basketModal">
+                    <div class = "barModal" onclick = "toggleBasket(this)">
+                        <div class = "barTitle">
+                            <p>Core Curriculum</p>
+                        </div>
+                        <div class = "barContainer">
+                            <p>CUs:</p>
+                            <div class = "cuBar">
+                                <div class = "basket b10"></div>
+                            </div>
+                            <p class = "c10"></p>
+                        </div>
                     </div>
                     <div class = "basketContent">
                     </div>
                 </div>
                 <div class = "basketModal">
-                    <div class = "barModal">
-                        <p>dsfd</p>
+                    <div class = "barModal" onclick = "toggleBasket(this)">
+                        <div class = "barTitle">
+                            <p>Information Systems Major Core</p>
+                        </div>
+                        <div class = "barContainer">
+                            <p>CUs:</p>
+                            <div class = "cuBar">
+                                <div class = "basket b9"></div>
+                            </div>
+                            <p class = "c9"></p>
+                        </div>
+                    </div>
+                    <div class = "basketContent">
+                    </div>
+                </div>
+                <div class = "basketModal">
+                    <div class = "barModal" onclick = "toggleBasket(this)">
+                        <div class = "barTitle">
+                            <p>Information Systems Major Electives</p>
+                        </div>
+                        <div class = "barContainer">
+                            <p>CUs:</p>
+                            <div class = "cuBar">
+                                <div class = "basket b8"></div>
+                            </div>
+                            <p class = "c8"></p>
+                        </div>
+                    </div>
+                    <div class = "basketContent">
+                    </div>
+                </div>
+                <div class = "basketModal">
+                    <div class = "barModal" onclick = "toggleBasket(this)">
+                        <div class = "barTitle">
+                            <p>Free Electives</p>
+                        </div>
+                        <div class = "barContainer">
+                            <p>CUs:</p>
+                            <div class = "cuBar">
+                                <div class = "basket b12"></div>
+                            </div>
+                            <p class = c12></p>
+                        </div>
+                    </div>
+                    <div class = "basketContent">
+                    </div>
+                </div>
+                <div class = "basketModal">
+                    <div class = "barModal" onclick = "toggleBasket(this)">
+                        <div class = "barTitle">
+                            <p>Strategic Management Second Major Core</p>
+                        </div>
+                        <div class = "barContainer">
+                            <p>CUs:</p>
+                            <div class = "cuBar">
+                                <div class = "basket b11"></div>
+                            </div>
+                            <p class = "c11"></p>
+                        </div>
+                    </div>
+                    <div class = "basketContent">
+                    </div>
+                </div>
+                <div style = "margin-bottom: 10vh; border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;" class = "basketModal">
+                    <div class = "barModal" onclick = "toggleBasket(this)">
+                        <div class = "barTitle">
+                            <p>Strategic Management Second Major Electives</p>
+                        </div>
+                        <div class = "barContainer">
+                            <p>CUs:</p>
+                            <div class = "cuBar">
+                                <div class = "basket b7"></div>
+                            </div>
+                            <p class = "c7"></p>
+                        </div>
                     </div>
                     <div class = "basketContent">
                     </div>
@@ -125,7 +207,7 @@
                                 <div class = "basket b4"></div>
                                 <div class = "basket b5"></div>
                                 <div class = "basket b6"></div>
-                                <div class = "basket b7"></div>
+                                <!-- <div class = "basket b7"></div> -->
                             </div>
                             <p id = "cuCounter"></p>
                         </div>
