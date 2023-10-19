@@ -756,6 +756,12 @@ function search() {
 
 
 $(document).ready(function() {
+
+
+  //initiate dropdown
+  $("#userSecondMajor").change(function(){
+      $("#secondMajorOut").text("2nd Major:" + $(this).text())
+  })
   
   addTab(true)
 

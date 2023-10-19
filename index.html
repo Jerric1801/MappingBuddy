@@ -185,12 +185,23 @@
             <div id = "mainContainer">
                 <div id = "trackBar">
                     <div class = "trackContainer">
+                        <p>Degree</p>
+                        <select id="userDegree" value = "degree">
+                            <option value="degree">Information Systems</option>
+                        </select>
+                    </div>
+                    <div class = "trackContainer">
                         <p>First Major</p>
-                        <input>
+                        <select id="userFirstMajor">
+                            <option value="firstMajor">Business Analytics</option>
+                        </select>
                     </div>
                     <div class = "trackContainer">
                         <p>Second Major</p>
-                        <input>
+                        <select id="userSecondMajor">
+                            <option selected></option>
+                            <option value="secondMajor">Strategic Management</option>
+                        </select>
                     </div>
                 </div>
                 <div id = "topBar">
@@ -216,7 +227,10 @@
                         </div>
                     </div>
                     <div id = "validContainer">
-                        <p>Major/Track Selector</p>
+                        <div id = "majorOutput">
+                            <p id = "firstMajorOut">1st Major: Business Analytics</p>
+                            <p id = "secondMajorOut">2nd Major: Not Selected</p>
+                        </div>
                         <div id = "openTrack" onclick = "toggleTrack()">
                             <img src = "img/arrow-down.png">
                         </div>
