@@ -462,7 +462,7 @@ body {
         box-shadow: 10px 2px 4px rgba(0, 0, 0, 0.2);
     }
     .trackContainer {
-        width: 10%;
+        width: 15%;
         height: 90%;
         font-size: 12px;
         display: flex;
@@ -478,7 +478,7 @@ body {
     }
 
     .trackContainer select {
-        height: 25%;
+        height: 30%;
         width: 100%;
         border-radius: 5px;
         border: 1px solid #ccc;

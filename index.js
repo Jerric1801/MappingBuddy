@@ -10,6 +10,15 @@ const mapList = {
   "IS105":"#009688"
 }
 
+const courseUnit = [
+  {"Core Curriculum": [["Managing Elective 2","Technology & Society Elective", "Cultures of the Modern World Elective", "COR3301 Ethics & Social Responsbility", "Internship", "Community Service"], ["COR1100 Writing & Reasoning", "COR2100 Economics & Society", "COR3001 Big Questions", "COR-STAT1202 Introductory Statistics", "COR-IS1702 Computational Thinking", "COR1305 Spreadsheet Modelling & Analytics"]]},
+  {"Information Systems Major Core": [["IS212 Software Project Management", "IS213 Enterprise Solution Development", "IS214 Enterprise Solution Management","IS215 Digital Business Technology & Transformation", "IS483/484/485 IS Project Experience"],["IS110 Information Systems and Innovation", "IS111 Introduction to Programming", "IS112 Data Management", "IS113 Web Application Development I", "IS216 Web Application Development II", "IS210 Business Process Analysis & Solutioning", "IS211 Interaction Design & Prototyping"]]},
+  {"Information Systems Major Electives": [["Business Analytics Track Course 1", "Business Analytics Track Course 2", "Business Analytics Track Course 3", "IS Related Course 1","IS Related Course 2"],["IS217 Analytics Foundation"]]},
+  {"Free Electives": [["Free Elective 1", "Free Elective 2", "Free Elective 3"],["Exemption 1", "Exemption 2", "Exemption 3"]]},
+  {"Strategic Management Second Major Core": [["MGMT102 Strategy","MGMT106 Introduction to Organisations"],[]]},
+  {"Strategic Management Second Major Electives": [["Strategic Management Second Major Basket 1 Elective","Strategic Management Second Major Basket 2 Elective 1", "Strategic Management Second Major Basket 2 Elective 2", "Strategic Management Second Major Basket 3 Elective 1", "Strategic Management Second Major Basket 3 Elective 2","Strategic Management Second Major Basket 3 Elective 3"],[]]},
+]
+
 const user = {
   "user": [
     {
@@ -65,6 +74,30 @@ function toggleBasket(element){
       basket.removeClass("barModalSelect")
     }
 
+}
+
+function infoCU() {
+  var count = 0 
+  $(".barModal").each(function(){
+    var key = $(this).find(".barTitle").text().trim()
+    var contentBox = $(this).next()
+    console.log(key)
+    var noUnits = courseUnit[count][key][0]
+    var takeUnits = courseUnit[count][key][1]
+
+    $.each(noUnits, function(i, val) {
+      var str1 = "<p>"+ val + "</p>"
+      contentBox.append(str1)
+    })
+
+    $.each(takeUnits, function(i, val) {
+      var str2 = "<p>"+ val + "</p>"
+      contentBox.append(str2)
+    })
+    
+    count ++ 
+  }) 
+  
 }
 
 function countCU() {
@@ -757,7 +790,7 @@ function search() {
 
 $(document).ready(function() {
 
-
+  infoCU()
   //initiate dropdown
   $("#userSecondMajor").change(function(){
       $("#secondMajorOut").text("2nd Major:" + $(this).text())
