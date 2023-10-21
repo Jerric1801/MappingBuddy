@@ -84,14 +84,16 @@ function infoCU() {
     console.log(key)
     var noUnits = courseUnit[count][key][0]
     var takeUnits = courseUnit[count][key][1]
-
+    var header1 = "<p>Uncompleted modules</p>"
+    contentBox.append(header1)
     $.each(noUnits, function(i, val) {
-      var str1 = "<p>"+ val + "</p>"
+      var str1 = "<p class = 'uncompleted'>"+ val + "</p>"
       contentBox.append(str1)
     })
-
+    var header2 = "<p>Completed modules</p>"
+    contentBox.append(header2)
     $.each(takeUnits, function(i, val) {
-      var str2 = "<p>"+ val + "</p>"
+      var str2 = "<p class = 'completed'>"+ val + "</p>"
       contentBox.append(str2)
     })
     

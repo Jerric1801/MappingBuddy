@@ -180,6 +180,18 @@ body {
         height: 30vh;
     }
 
+    .basketContent p {
+        margin-left: 3vw;
+    }
+
+        .uncompleted {
+            color: red;
+        }
+
+        .completed {
+            color: green;
+        }
+
         .accordion {
             animation: 1s accordion forwards;
         }
