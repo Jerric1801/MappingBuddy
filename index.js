@@ -436,20 +436,26 @@ function generateKanban(sem = user.user[0].sem ) {
           cards.each(function() {
             cardTop = $(this).offset().top  + ui.draggable.height()
             nextTop = $(this).offset().top + ui.draggable.height()* 2
-            cardLeft = $(this).offset().left
-            cardRight = $(this).offset().left  + ui.draggable.width() 
+            cardLeft = $(this).offset().left 
+            cardRight = $(this).offset().left  + ui.draggable.width()
             // || nextTop > draggablePosition.y
             const gap = $("<div id = 'moduleGap'></div>")
             var cardIndex = $(this).index()
+
+            console.log(cardTop)
   
             if (draggablePosition.y > cardTop && draggablePosition.y < nextTop && cardLeft > containerPosition.left && cardRight < containerPosition.right) {
               $("#moduleGap").remove()
               gap.insertAfter(container.children().eq(cardIndex))
-
+              console.log("false")
               const interval = setInterval(function(){
-                if (draggablePosition.y < cardTop || draggablePosition.y > nextTop || cardLeft < containerPosition.left || cardRight > containerPosition.right) {
+                if (draggablePosition.y < cardTop|| draggablePosition.y > nextTop || cardLeft < containerPosition.left || cardRight > containerPosition.right) {
+                  console.log("checking")
                   $("#moduleGap").remove();
                   clearInterval(interval)
+                }
+                else {
+                  console.log("false")
                 }
               }, 3000)
             
