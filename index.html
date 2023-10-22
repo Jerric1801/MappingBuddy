@@ -15,6 +15,8 @@
 
         </div>
         <!-- absolute items -->
+        <!-- <img id = "pointerTest" src = "img/pointer.gif"> -->
+        <img id = "logo" src = "img/logo.png">
         <img id = "pointer" src = "img/pointer.gif">
         <div id = "modSelection">
             <div class = "modSelect" onclick = "toggleInfo(this)">
@@ -28,13 +30,14 @@
         <div id = "helpModal" class = "modalBox">
             <div class = "headerModal">
                 <div class = "headerTitle">
+                    <p id = "docText"></p>
                 </div>
                 <div class = "closeModal" onclick = "closeTutorial()">
                     <p>X</p>
                 </div>
             </div>
             <div class = "contentModal">
-                
+                <p id = "docContent"></p>
             </div>
         </div>
 
@@ -270,7 +273,6 @@
         <!-- absolute items -->
 
         <div id = "kanbanTop">
-            <img src = "img/logo.png">
             <img style = "width: 2.5vh;" src = "img/help.png" onclick = "startTutorial()">
         </div>
         <div id = "kanban">

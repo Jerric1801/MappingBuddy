@@ -51,9 +51,24 @@ body {
     font-family: Grotesk;
     overflow:hidden;
 }
+#logo {
+    width:7vw;
+    position: absolute;
+    z-index: 500;
+    margin-left: 91vw;
+    margin-top: 91vh;
+}
+
+#pointerTest {
+    width: 5vw;
+    position: absolute;
+    z-index: 500;
+    margin-left: 25vw;
+    margin-top: 89vh;
+}
 
 #pointer {
-    width: 3vw;
+    width: 5vw;
     position: absolute;
     z-index: 300;
     display:none;
@@ -256,6 +271,7 @@ body {
     width: 30vw;
     height: 30vh;
     background-color: var(--pri);
+    z-index: 300;
 }
         
 

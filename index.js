@@ -56,14 +56,16 @@ const modColor = {
 }
 
 const tutorial = {
-    "Open Track Selector":["Click the button to open the major/track selector",["60vw","40vh"],["88.5vw","10.5vh"], "#openTrack"],
-    "Select Track":["Click the button to open the major/track selector",["58vw","20.5vh"],["40vw","30vh"], ".trackContainer"],
-    "Kanban Board":["Click the button to open the major/track selector",["60vw","40vh"],["88.5vw","10.5vh"]],
-    "Search":"",
-    "Filter":"",
-    "Course Units":"",
-    "Tabs":"",
-    "Focus":"",
+    "Open Track Selector":["Click the button to open the major/track selector",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
+    "Select Track":["Select a Second Major that you want to try!",["58vw","24vh"],["60vw","17.5vh"], ".trackContainer"],
+    "Close Track Selector":["After you have chosen your Degree or Major, close the track selector",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
+    "Kanban Board":["This is the kanban board, where most of your module planning happens! You can drag and drop module cards and scroll through the semester",["60vw","40vh"],["50vw","50vh"],".semContainer"],
+    "Search":["If you're looking for mods, here's the place! Try searching for a mod in the searchbar!",["13vw","17vh"],["10vw","10vh"],"#searchInput"],
+    "Filter":["If you want to filter modules, you can use this button!",["15vw","20vh"],["14vw","10vh"], "#filterContainer"],
+    "Apply the filter":["If you want to filter modules, you can use this button!",["30vw","60vh"],["80vw","70vh"], "#filterApply"],
+    "Course Units":["This is the cu bar! it tells you how many cus you have left to clear",["20vw","12vh"],["50.5vw","9.5vh"], "#cuInformation"],
+    "Course Unit Infomation":["This shows you a breakdown of the basket! You can exit once you are done",["70vw","25vh"],["70.5vw","17vh"], ".closeModal"],
+    "Tabs":["You can rename, duplicate and create tabs to plan your course progressions concurrently! Click on the first tab to end this tutorial",["32vw","68vh"],["26vw","89vh"], ".tab"],
 }
 
 async function startTutorial() {
@@ -82,14 +84,15 @@ async function startTutorial() {
   }
 
   for (const [key, value] of Object.entries(tutorial)) {
-    console.log(key);
     binder = value[3];
     mLeft = value[1][0];
     mTop = value[1][1];
-
     pLeft = value[2][0];
     pTop = value[2][1];
-    console.log(mLeft);
+
+    var info = value[0]
+    $("#docText").text(key)
+    $("#docContent").text(info)
 
     modal.css({
       "margin-left": mLeft,
@@ -101,7 +104,11 @@ async function startTutorial() {
     });
 
     await binderClick(binder);
+
   }
+
+  modal.hide()
+  pointer.hide()
 }
 
 function closeTutorial() {
