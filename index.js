@@ -55,6 +55,60 @@ const modColor = {
   "SM": "#009688"
 }
 
+const tutorial = {
+    "Open Track Selector":["Click the button to open the major/track selector",["60vw","40vh"],["88.5vw","10.5vh"], "#openTrack"],
+    "Select Track":["Click the button to open the major/track selector",["58vw","20.5vh"],["40vw","30vh"], ".trackContainer"],
+    "Kanban Board":["Click the button to open the major/track selector",["60vw","40vh"],["88.5vw","10.5vh"]],
+    "Search":"",
+    "Filter":"",
+    "Course Units":"",
+    "Tabs":"",
+    "Focus":"",
+}
+
+async function startTutorial() {
+  var modal = $("#helpModal");
+  var pointer = $("#pointer");
+  modal.show();
+  pointer.show();
+
+  function binderClick(binder) {
+    return new Promise(resolve => {
+      $(binder).click(function() {
+        console.log('clicked');
+        resolve();
+      });
+    });
+  }
+
+  for (const [key, value] of Object.entries(tutorial)) {
+    console.log(key);
+    binder = value[3];
+    mLeft = value[1][0];
+    mTop = value[1][1];
+
+    pLeft = value[2][0];
+    pTop = value[2][1];
+    console.log(mLeft);
+
+    modal.css({
+      "margin-left": mLeft,
+      "margin-top": mTop
+    });
+    pointer.css({
+      "margin-left": pLeft,
+      "margin-top": pTop
+    });
+
+    await binderClick(binder);
+  }
+}
+
+function closeTutorial() {
+  $("#helpModal").hide()
+  $("#pointer").hide()
+}
+
 function toggleBasket(element){
     var basket = $(element)
     var sibling = basket.next()
@@ -84,16 +138,16 @@ function infoCU() {
     console.log(key)
     var noUnits = courseUnit[count][key][0]
     var takeUnits = courseUnit[count][key][1]
-    var header1 = "<p>Uncompleted modules</p>"
+    var header1 = "<div class = 'uncompleteHeader basketContentHead'><p>Uncompleted modules</p></div>"
     contentBox.append(header1)
     $.each(noUnits, function(i, val) {
-      var str1 = "<p class = 'uncompleted'>"+ val + "</p>"
+      var str1 = "<p>"+"<span class = 'uncompleted'> &#x274c;</span> "+ val + "</p>"
       contentBox.append(str1)
     })
-    var header2 = "<p>Completed modules</p>"
+    var header2 = "<div class = 'completeHeader basketContentHead'><p>Completed modules</p></div>"
     contentBox.append(header2)
     $.each(takeUnits, function(i, val) {
-      var str2 = "<p class = 'completed'>"+ val + "</p>"
+      var str2 = "<p>"+"<span class = 'completed'>&#10004;</span> "+ val + "</p>"
       contentBox.append(str2)
     })
     
@@ -120,7 +174,6 @@ function countCU() {
   cardColor.each(function() {
     var colorCon = $(this).find(".moduleColor")
     var color = colorCon.css("background-color")
-    console.log(color)
     if (color in colorDict) {
       colorDict[color] += 1
     }
@@ -143,12 +196,10 @@ function countCU() {
   // Convert the sorted array back to a dictionary.
   var sortedDictionary = Object.fromEntries(keyValuePairs);
 
-  console.log(sortedDictionary)
 
   var count = 1;
   for (const [key, value] of Object.entries(sortedDictionary)) {
-     console.log(key)
-     console.log(value)
+
     var proportion = value / total * 100;
     var basketProp = value/baskets[count-1] * 100;
     $(`.b` + count).css({
@@ -262,11 +313,17 @@ function toggleFocus(){
 
   if (main.hasClass('focus')) {
     $("#focusKanban img").prop("src", "./img/fullscreen (1).png")
+    $("#sideBar").css("width", "14%")
+    $("#mainContainer").css("width", "86%")
+    $("#mainContainer").css("margin-left", "14%")
     $(".semTitle").addClass("expandSemTitle")
      cards.addClass("shrink")
     }
   else {
     $("#focusKanban img").prop("src", "./img/fullscreen.png")
+    $("#sideBar").css("width", "17.5%")
+    $("#mainContainer").css("width", "82.5%")
+    $("#mainContainer").css("margin-left", "17.5%")
     // $("#focusKanban img").prop("src", "./img/fullscreen (1).png")
     $(".semTitle").removeClass("expandSemTitle")
     cards.removeClass("shrink")
@@ -311,6 +368,7 @@ function toggleSidebar() {
 
 function generateKanban(sem = user.user[0].sem ) {
   $("#mainBoard").empty()
+  
   var count = 1
   $.each(sem, function(key, value) {
 
@@ -357,7 +415,6 @@ function generateKanban(sem = user.user[0].sem ) {
           x: event.pageX,
           y: event.pageY
         };
-        // console.log($(this).data("originContainer"))
         const container = $(this)
         var containerIndex = $(".semContainer").index(container)
 
@@ -370,7 +427,6 @@ function generateKanban(sem = user.user[0].sem ) {
 
         if (containerIndex != originIndex) {
           cards.each(function() {
-            console.log($(this).index())
             cardTop = $(this).offset().top  + ui.draggable.height()
             nextTop = $(this).offset().top + ui.draggable.height()* 2
             cardLeft = $(this).offset().left
@@ -397,18 +453,20 @@ function generateKanban(sem = user.user[0].sem ) {
         }
 
         else {
-          console.log("origin container")
 
           //to write ability for own container
         }
       },
 
       on: function(){
+        console.log("raise")
         $("#moduleGap").remove()
       },
 
 
       drop: function(event, ui) {
+        
+
         // clearInterval(interval)
         if (($("#mainContainer").find('#moduleGap')).length != 0) {
           var insertIndex = $("#moduleGap").index() -1
@@ -419,6 +477,15 @@ function generateKanban(sem = user.user[0].sem ) {
 
 
         $("#moduleGap").remove()
+
+        //check if module is already on board
+        const originContainer = ui.helper.parent();
+        var existText = $(".semContainer").find(".moduleCard").text()
+
+        if (existText.includes(ui.draggable.text()) && !(originContainer.hasClass("semContainer"))) {
+          raiseError("The board contains this card")
+          return;
+        }
 
         if ($(this).children().length < 6){
           ui.draggable.attr("style", "position: relative; z-index: 50")
@@ -445,6 +512,18 @@ function generateKanban(sem = user.user[0].sem ) {
      });
 
     countCU()
+
+    var main = $("#mainBoard")
+    var cards = $(".moduleCard")
+
+    if (main.hasClass('focus')) {
+      $(".semTitle").addClass("expandSemTitle")
+       cards.addClass("shrink")
+      }
+    else {
+      $(".semTitle").removeClass("expandSemTitle")
+      cards.removeClass("shrink")
+    }
 
     // var left = 0
 
@@ -640,7 +719,7 @@ function renameTab(tabIndex) {
   $("#tabSelection").hide();
 
   boardTitle.text("")
-  boardTitle.append("<input type = 'text'>");
+  boardTitle.append("<input maxlength='12' type = 'text'>");
   // boardTitle.find("input").attr("minlength", 10);
   boardTitle.find("input").focus()
 
@@ -668,7 +747,6 @@ function deleteTab(tabIndex) {
   }
   $("#tabSelection").hide();
   var boards = JSON.parse(localStorage.getItem("Boards"))
-  console.log(boards)
   boards.splice(tabIndex, 1)
 
   if ($(".tab").eq(tabIndex).hasClass("selectTab")){

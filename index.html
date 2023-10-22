@@ -15,12 +15,26 @@
 
         </div>
         <!-- absolute items -->
+        <img id = "pointer" src = "img/pointer.gif">
         <div id = "modSelection">
             <div class = "modSelect" onclick = "toggleInfo(this)">
                 <p>Get Info</p>
             </div>
             <div class = "modSelect" onclick = "deleteModule(this)">
                 <p>Delete</p>
+            </div>
+        </div>
+
+        <div id = "helpModal" class = "modalBox">
+            <div class = "headerModal">
+                <div class = "headerTitle">
+                </div>
+                <div class = "closeModal" onclick = "closeTutorial()">
+                    <p>X</p>
+                </div>
+            </div>
+            <div class = "contentModal">
+                
             </div>
         </div>
 
@@ -151,8 +165,99 @@
         </div>
 
         <div id = "filterModal" class = "modalBox">
-            <div id = "closeFilter" onclick = "checkFilter()">
-                <p>X</p>
+            <div class = "headerModal">
+                <div class = "headerTitle">
+                    <p>Filter by</p>
+                </div>
+                <div class = "closeModal" onclick = "checkFilter()">
+                    <p>X</p>
+                </div>
+            </div>
+            <div class = "filterContent">
+                <div class = "filterBox">
+                    <div class = "filterTitle">
+                        <p>Requirements</p>
+                    </div>
+                    <div class = "filterScroll">
+                        <div class = "filterItem">
+                            <p>ALL</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Uni CORE</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Track CORE</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Free Electives</p>
+                            <input type="checkbox">
+                        </div>
+                    </div>
+                </div>    
+                <div class = "filterBox">
+                    <div class = "filterTitle">
+                        <p>Baskets</p>
+                    </div>
+                    <div class = "filterScroll">
+                        <div class = "filterItem">
+                            <p>ALL</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Basket 1</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Basket 2</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Basket 3</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Basket 4</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Basket 5</p>
+                            <input type="checkbox">
+                        </div>
+                    </div>
+                </div>             
+                <div class = "filterBox">
+                    <div class = "filterTitle">
+                        <p>Prioritization</p>
+                    </div>
+                    <div class = "filterScroll">
+                        <div class = "filterItem">
+                            <p>Depth of Knowledge</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Breath of Knowledge</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>GPA</p>
+                            <input type="checkbox">
+                        </div>
+                        <div class = "filterItem">
+                            <p>Basket Fulfilment</p>
+                            <input type="checkbox">
+                        </div>
+                    </div>
+                </div>                         
+            </div>
+            <div id = "filterSubmit">
+                <div id = "careerOption">
+                </div>
+                <div id = "filterApply" onclick = "checkFilter()">
+                    <p>Apply</p>
+                </div>
             </div>
         </div>
 
@@ -166,6 +271,7 @@
 
         <div id = "kanbanTop">
             <img src = "img/logo.png">
+            <img style = "width: 2.5vh;" src = "img/help.png" onclick = "startTutorial()">
         </div>
         <div id = "kanban">
             <div id = "sideBar"> 
