@@ -909,9 +909,10 @@ function search() {
 
 $(document).ready(function() {
 
-  var first = localStorage.getItem("first")
+  var first = JSON.parse(localStorage.getItem("first"))
+  console.log(first)
 
-  if (first != true) {
+  if (first != "success") {
     introduction()
     setTimeout(function() {
       startTutorial()
@@ -925,7 +926,7 @@ $(document).ready(function() {
 
   generateKanban()
 
-  localStorage.setItem("first", true)
+  localStorage.setItem("first",JSON.stringify("success"))
 
   infoCU()
   //initiate dropdown
