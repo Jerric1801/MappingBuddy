@@ -912,11 +912,10 @@ $(document).ready(function() {
   var first = localStorage.getItem("first")
 
   if (first != true) {
-
+    introduction()
     setTimeout(function() {
-      introduction()
+      startTutorial()
     }, 3000)
-    startTutorial()
   }
   else {
     var loadedBoard = JSON.parse(localStorage.getItem("Boards"))
