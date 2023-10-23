@@ -911,7 +911,7 @@ $(document).ready(function() {
 
   var first = localStorage.getItem("first")
 
-  if (first == true) {
+  if (first != true) {
     introduction()
     startTutorial()
   }
