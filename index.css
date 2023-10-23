@@ -59,6 +59,37 @@ body {
     margin-top: 91vh;
 }
 
+    .moveLogo {
+        animation: moveLogo 3s forwards;
+    }
+
+    @keyframes moveLogo {
+        0% {
+            transform: translateX(-65vw) translateY(-60vh);
+            width: 48vw;
+        }
+        10% {
+            transform: translateX(-65vw) translateY(-60vh);
+            width: 48vw;
+        }
+        20% {
+            transform: translateX(-65vw) translateY(-60vh) rotate(-10deg);
+            width: 48vw;
+        }
+        30% {
+            transform: translateX(-65vw) translateY(-60vh) rotate(10deg);
+            width: 48vw;
+        }
+        50% {
+            transform: translateX(-65vw) translateY(-60vh);
+            width: 48vw;
+        }
+        100% {
+            /* transform: translateX(10vw) translateY(10vh); */
+            width: 7vw;
+        }
+    }   
+
 #pointerTest {
     width: 5vw;
     position: absolute;
@@ -101,6 +132,16 @@ body {
 #kanban {
     display: flex;
     flex-direction: row;
+}
+
+#introWrapper {
+    display: none;
+    position:absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--grey);
+    opacity: 0.80;
+    z-index: 101;
 }
 
 #modalWrapper {

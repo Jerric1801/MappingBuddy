@@ -72,6 +72,21 @@ const tutorial = {
     "Tabs 📌":["Get ready to unleash your creativity! You can rename, duplicate, and create tabs to plan multiple course progressions at once. Click on the first tab to conclude this fantastic tutorial!",["32vw","68vh"],["26vw","89vh"], ".tab"],
 }
 
+function introduction() {
+  var logo = $("#logo")
+    $("#introWrapper").css("display", "block")
+    logo.addClass("moveLogo")
+
+  setTimeout(function() {
+    logo.removeClass("moveLogo")
+    $("#introWrapper").css("display", "none")
+  }, 3000)
+
+  // logo.removeClass("moveLogo")
+  // $("#introWrapper").css("display", "none")
+  
+}
+
 async function startTutorial() {
   var main = $("#mainBoard")
   if (main.hasClass('focus')) {
@@ -897,6 +912,7 @@ $(document).ready(function() {
   var first = localStorage.getItem("first")
 
   if (first == true) {
+    introduction()
     startTutorial()
   }
   else {
