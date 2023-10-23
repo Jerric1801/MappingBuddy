@@ -912,7 +912,10 @@ $(document).ready(function() {
   var first = localStorage.getItem("first")
 
   if (first != true) {
-    introduction()
+
+    setTimeout(function() {
+      introduction()
+    }, 3000)
     startTutorial()
   }
   else {
