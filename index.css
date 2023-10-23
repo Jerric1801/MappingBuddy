@@ -67,10 +67,19 @@ body {
     margin-top: 89vh;
 }
 
+#helpIcon{
+    width: 2.5vw;
+    height: 2.5vh;
+}
+
+    #helpIcon:hover {
+        cursor: pointer;
+    }
+
 #pointer {
     width: 5vw;
     position: absolute;
-    z-index: 300;
+    z-index: 301;
     display:none;
 }
 
@@ -273,6 +282,14 @@ body {
     background-color: var(--pri);
     z-index: 300;
 }
+
+    .docModal {
+        display: flex;
+        width: 87.5%;
+        flex-direction: center;
+        align-items: center;
+        text-align: center;
+    }
         
 
 #cuModal {
@@ -453,18 +470,46 @@ body {
     } */
 
 #errorModal {
-    width: 50vw;
+    width: 40vw;
     height: 30vh;
     margin-top: 35vh;
-    margin-left: 25vw;
+    margin-left: 30vw;
 }
 
     #errorClose {
         background-color: var(--red);
         color: white;
         width: 20%;
-        height: 10%;
+        height: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        align-self: flex-end;
+        margin-left: 5%;
     }
+
+        #errorMessageContainer {
+            height: 60%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #errorClose:hover {
+            cursor: pointer;
+        }
+
+    .errorHeader{
+        background-color: var(--red);
+        color: var(--pri);
+    }
+
+        .errorHeader p {
+            font-size: 1.1em;
+            margin-left: 5%;
+        }
 
     .showError {
         display: flex;

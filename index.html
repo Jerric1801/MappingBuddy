@@ -37,7 +37,9 @@
                 </div>
             </div>
             <div class = "contentModal">
-                <p id = "docContent"></p>
+                <div class = "docModal">
+                    <p id = "docContent"></p>
+                </div>
             </div>
         </div>
 
@@ -156,14 +158,13 @@
             <div class = "headerModal">
                 <div class = "headerTitle">
                     <p id = "courseTitle"></p>
-                    <a id = "coursePage" target="_blank"></a>
                 </div>
                 <div class = "closeModal" onclick = "toggleInfo()">
                     <p>X</p>
                 </div>
             </div>
             <div class = "contentModal">
-                
+                <a id = "coursePage" target="_blank"></a>
             </div>
         </div>
 
@@ -265,15 +266,25 @@
         </div>
 
         <div id = "errorModal" class = "modalBox">
-            <p class = "errorMessage"></p>
+            <div class = "headerModal errorHeader">
+                <p>Error</p>
+            </div>
+            <div class = "contentModal">
+
+            <div id = errorMessageContainer>
+                <div class = "docModal">
+                    <p class = "errorMessage"></p>
+                </div>
+            </div>
             <div id = "errorClose" onclick = "toggleError()">
-                <p>X</p>
+                <p>Close</p>
+            </div>
             </div>
         </div>
         <!-- absolute items -->
 
         <div id = "kanbanTop">
-            <img style = "width: 2.5vh;" src = "img/help.png" onclick = "startTutorial()">
+            <img id = "helpIcon" src = "img/help.png" onclick = "startTutorial()">
         </div>
         <div id = "kanban">
             <div id = "sideBar"> 
