@@ -91,6 +91,7 @@ function introduction() {
 }
 
 async function startTutorial() {
+  toggleTrack()
   var main = $("#mainBoard")
   if (main.hasClass('focus')) {
     toggleFocus()
