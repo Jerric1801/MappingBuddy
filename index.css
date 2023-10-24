@@ -531,6 +531,7 @@ body {
             align-items: center;
             background-color: var(--grey);
             color: var(--pri);
+            border-radius: 10px;
         }
 
             #filterApply:hover {

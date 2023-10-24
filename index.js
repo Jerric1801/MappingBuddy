@@ -63,15 +63,15 @@ const invalid = ["CS.420Introduction to Artificial Intelligence"]
 
 const tutorial = {
   "Welcome 🐻":["Welcome to MappingBuddy! 🌟 We're about to take a quick tour to explore the awesome features of Mapping Buddy. Click right where my magic wand points to begin the adventure! ✨🗺️",["35vw","35vh"],["62vw","57.5vh"], ""],
-    "Open Track Selector 🛤️":["Click on this button where my magic wand points to embark on your journey! This is where you choose your major or track.",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
+    "Open Track Selector 🛤️":["Click on this button where my magic wand points to embark on your journey! This is where you choose your major or track. [action needed]",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
     "Select Track 🚀":["Explore your potential majors by clicking the dropdowns. Let's unlock new possibilities together!",["60vw","26vh"],["62vw","18.5vh"], ".trackContainer"],
-    "Close Track Selector 🚪":["After you've made your selections, close the Track Selector by clicking where my magic wand points. This paves the way for your academic adventure",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
+    "Close Track Selector 🚪":["After you've made your selections, close the Track Selector by clicking where my magic wand points. This paves the way for your academic adventure. [action needed]",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
     "Kanban Board 📊":["Welcome to the Kanban Board! This is where the magic of module planning happens. You can effortlessly drag and drop module cards and smoothly scroll through the semesters. Let's plan like a pro!",["60vw","40vh"],["55vw","57vh"],"#mainBoard"],
     "Search 🔎":["Looking for specific modules? The search bar is your trusty companion. Look out for the recommendation icon 👍🏻 on the top-right of your module cards.",["13vw","17vh"],["10vw","9vh"],"#searchInput"],
-    "Filter 🧹":["If you want to refine your module search, use the filter button. This feature makes finding the perfect modules a breeze! To open the modal, click where my magic wand points!",["15vw","20vh"],["14vw","9vh"], "#filterContainer"],
-    "Apply the Filter ✨":["Once you've customized your filter settings, hit apply, where my magic wand points! Watch the magic happen as your module options become crystal clear.",["30vw","60vh"],["80vw","70vh"], "#filterApply"],
-    "Course Units 📚":["The Course Units bar is your handy guide. It tells you how many course units you have left to complete. Stay on track with this helpful indicator. To get more infomation about CUs, click where my magic wand points!",["20vw","12vh"],["51vw","8vh"], "#cuInformation"],
-    "Course Unit Information ℹ️":["Need a closer look at your course units? Explore our information feature for a breakdown of your basket. You can exit once you're satisfied with your choices, click where my magic wand points!",["70vw","25vh"],["70.5vw","17vh"], ".closeModal"],
+    "Filter 🧹":["If you want to refine your module search, use the filter button. This feature makes finding the perfect modules a breeze! To open the modal, click where my magic wand points! [action needed]",["15vw","20vh"],["14vw","9vh"], "#filterContainer"],
+    "Apply the Filter ✨":["Once you've customized your filter settings, hit apply, where my magic wand points! Watch the magic happen as your module options become crystal clear. [action needed]",["30vw","60vh"],["80vw","70vh"], "#filterApply"],
+    "Course Units 📚":["The Course Units bar is your handy guide. It tells you how many course units you have left to complete. Stay on track with this helpful indicator. To get more infomation about CUs, click where my magic wand points! [action needed]",["20vw","12vh"],["51vw","8vh"], "#cuInformation"],
+    "Course Unit Information ℹ️":["Need a closer look at your course units? Explore our information feature for a breakdown of your basket. You can exit once you're satisfied with your choices, click where my magic wand points! [action needed]",["70vw","25vh"],["70.5vw","17vh"], ".closeModal"],
     "Tabs 📌":["Get ready to unleash your creativity! You can rename, duplicate, and create tabs to plan multiple course progressions at once.",["32vw","68vh"],["26vw","89vh"], ".tab"],
 }
 
