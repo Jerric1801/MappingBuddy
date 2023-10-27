@@ -53,6 +53,31 @@
 
         </div>
 
+        <div id = "faqModal" class = "modalBox">
+            <div class = "headerModal">
+                <div class = "headerTitle">
+                    <p>FAQ</p>
+                </div>
+                <div class = "closeModal" onclick = "toggleFAQ()">
+                    <p>X</p>
+                </div>
+            </div>
+            <div class = "contentModal">
+                <div class = "faqHeader">
+                    <p class = "faqHead">What is the recommended number of mods to take in 1 semester?</p>
+                    <p class = "faqContent">4 to 5 modules</p>
+                </div>
+                <div class = "faqHeader">
+                    <p class = "faqHead">Where can I do my bidding?</p>
+                    <p class = "faqContent">You can do your bidding on BOSS, found in OASIS, SMU's online platform</p>
+                </div>
+                <div class = "faqHeader">
+                    <p class = "faqHead">How can I Declare/Change a Major</p>
+                    <p class = "faqContent">You can access the declare/change Major module on OASIS. The application is not available during all rounds of BOSS.</p>
+                </div>
+            </div>
+        </div>
+
         <div id = "cuModal" class = "modalBox">
             <div class = "headerModal">
 
@@ -295,9 +320,11 @@
 
         <div id = "kanbanTop">
             <p>Welcome, <span style = "color:2390F3;">Bobby</span></p>
-            <div id = "helpContainer" onclick = "startTutorial()">
-                <p>help</p>
-                <img id = "helpIcon" src = "img/help.png" >
+            <div id = "helpContainer">
+                <p onclick = "toggleFAQ()">faq</p>
+                <!-- <img class = "helpIcon" src = "img/help.png" > -->
+                <p onclick = "startTutorial()">help</p>
+                <!-- <img class = "helpIcon" src = "img/help.png" > -->
             </div>
         </div>
         <div id = "kanban">
@@ -309,6 +336,9 @@
                         <div id = "filterContainer" onclick = "checkFilter()">
                             <img src = "img/filter.png">
                         </div>
+                    </div>
+                    <div id = "searchIndicator">
+                        <p id = "searchMode">Recommendations</p>
                     </div>
                     <div id = "searchResult">
 

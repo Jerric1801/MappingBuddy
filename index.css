@@ -94,26 +94,25 @@ body {
 
 
 #helpContainer {
-    width: 7.5%;
+    width: 10%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    margin-right: 1vw;
 }
 
-    #helpContainer:hover {
-        cursor:pointer;
-        transform:scale(1.03);
-    }
+/* .helpIcon{
+    width: 1.5vw;
+    object-fit: cover;
+    margin:0;
+    padding:0;
+    margin-right: 0.5vw;
+} */
 
-#helpIcon{
-    width: 2vw;
-    height: 2vh;
-}
-
-    #helpIcon:hover {
+    /* #helpIcon:hover {
         cursor: pointer;
-    }
+    } */
 
 #pointer {
     width: 5vw;
@@ -131,17 +130,48 @@ body {
     justify-content: space-between;
 }
 
-    #kanbanTop img {
+    /* #kanbanTop img {
         object-fit: contain;
         width: 5vw;
-        margin-right:1.5vw;
-    }
+    } */
 
     #kanbanTop p {
-        margin-left: 2vw;
         font-size: 0.8em;
         font-weight: bolder;
         letter-spacing: 0.5px;
+        margin-left: 2vw;
+    }
+
+    #helpContainer p {
+        margin-right: 1px;
+        margin-left: 0.5vw !important;
+    }
+
+    #helpContainer p:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+#faqModal {
+    width: 70vw;
+    height: 70vh;
+    margin-top: 15vh;
+    margin-left: 15vw;
+}
+
+    .faqHeader {
+        width: 80%;
+        height: 10vh;
+        margin-top: 3vh;
+    }
+
+    .faqHead {
+        font-size: 1.1em;
+        text-decoration: underline;
+    }
+
+    .faqContent {
+        font-size: 0.9em;
     }
 
 #kanban {
@@ -588,6 +618,7 @@ body {
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 1.1em;
         }
 
         #errorClose:hover {
@@ -742,9 +773,18 @@ body {
             height: 40px;
         }
 
+        #searchIndicator {
+            height: 5%;
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+        }
+
         #searchResult {
             width: 90%;
-            height: 92.5%;
+            height: 87.5%;
             overflow-y: scroll;
             overflow-x: hidden !important;
             scrollbar-width: none;

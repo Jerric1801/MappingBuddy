@@ -42,7 +42,7 @@ const user = {
     }
   ]
 }
-const recommended = ["MGMT102 Strategy", "MGMT106 Introduction to Organisations", "IS212 Software Project Management", "IS213 Enterprise Solution Development", "IS214 Enterprise Solution Management","IS215 Digital Business Technology & Transformation", "COR3301 Ethics & Social Responsbility", "MGMT237 Corporate Strategy", "MGMT.205 International Business", "MGMT.319 Management of Technology and Innovation", "MGMT345 Digital Strategy in the Digital Media and Entertainment E-Commerce Ecosystem in Asia", "IS453 Financial Analytics", "IS461 AI Governance", "IS459 Big Data Architecture", "IS460 Machine Learning & Applications"]
+const recommended = ["MGMT106 Introduction to Organisations", "IS213 Enterprise Solution Development","IS.446 Managing Customer Relations with Analytics: Asian Insights", "IS212 Software Project Management", "MGMT102 Strategy", "IS213 Enterprise Solution Development", "MGMT.236 Managing Strategic Change and Digital Transformation", "MGMT237 Corporate Strategy","IS215 Digital Business Technology & Transformation","IS214 Enterprise Solution Management","COR3301 Ethics & Social Responsbility", "MGMT.205 International Business", "MGMT.319 Management of Technology and Innovation", "MGMT345 Digital Strategy in the Digital Media and Entertainment E-Commerce Ecosystem in Asia", "IS453 Financial Analytics", "IS461 AI Governance", "IS459 Big Data Architecture", "IS460 Machine Learning & Applications"]
 var currentBoard = 0
 var tabIndex = 0
 var semIndex = 0
@@ -59,7 +59,8 @@ const modColor = {
   "SM": "#009688"
 }
 
-const invalid = ["CS.420Introduction to Artificial Intelligence"]
+const invalid = ["CS421Principles of Machine Learning"]
+
 
 const tutorial = {
   "Welcome 🐻":["Welcome to MappingBuddy! 🌟 We're about to take a quick tour to explore the awesome features of Mapping Buddy. Click right where my magic wand points to begin the adventure! ✨🗺️",["35vw","35vh"],["62vw","57.5vh"], ""],
@@ -73,6 +74,10 @@ const tutorial = {
     "Course Units 📚":["The Course Units bar is your handy guide. It tells you how many course units you have left to complete. Stay on track with this helpful indicator. To get more infomation about CUs, click where my magic wand points! [action needed]",["20vw","12vh"],["51vw","8vh"], "#cuInformation"],
     "Course Unit Information ℹ️":["Need a closer look at your course units? Explore our information feature for a breakdown of your basket. You can exit once you're satisfied with your choices, click where my magic wand points! [action needed]",["70vw","25vh"],["70.5vw","17vh"], ".closeModal"],
     "Tabs 📌":["Get ready to unleash your creativity! You can rename, duplicate, and create tabs to plan multiple course progressions at once.",["32vw","68vh"],["26vw","89vh"], ".tab"],
+}
+
+function toggleFAQ () {
+  $("#faqModal").toggle()
 }
 
 function introduction() {
@@ -915,6 +920,7 @@ function filterMods(searchTerm) {
 
 function search() {
   $("#searchbar").keyup(function() {
+    $("#searchMode").text("Search")
     // Get the search term
     var searchTerm = $(this).val();
 
@@ -982,6 +988,7 @@ $(document).ready(function() {
   }
   $("#searchInput").find("input").blur(function() {
     if($(this).val() == "") {
+      $("#searchMode").text("Recommendations")
       $("#searchResult").empty()
       for (mod in recommended) {
         var module = createModule(recommended[mod],true, true)
