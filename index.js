@@ -663,7 +663,7 @@ function toggleModSelect(element) {
     cardIndex = semContainer.find(card).index()
   }
   else {
-    cardIndex = $("#sw21earchResult").find(card).index()
+    cardIndex = $("#searchResult").find(card).index()
   }
 
   var modSelect = $(element).offset()
@@ -918,9 +918,16 @@ function filterMods(searchTerm) {
   return results
 }
 
+const searching = ["Search", "Search..", "Search....", "Search......"]
+var searchingIndex = 0
+
 function search() {
   $("#searchbar").keyup(function() {
-    $("#searchMode").text("Search")
+    if (searchingIndex == 4) {
+      searchingIndex = 0
+    }
+    $("#searchMode").text(searching[searchingIndex])
+    searchingIndex += 1
     // Get the search term
     var searchTerm = $(this).val();
 
@@ -988,12 +995,24 @@ $(document).ready(function() {
   }
   $("#searchInput").find("input").blur(function() {
     if($(this).val() == "") {
+      $("#searchMode").addClass("fadeMode")
+      setTimeout(function() {
+        $("#searchMode").removeClass("fadeMode")
+      }, 350)
       $("#searchMode").text("Recommendations")
       $("#searchResult").empty()
       for (mod in recommended) {
         var module = createModule(recommended[mod],true, true)
         module.appendTo($("#searchResult"))
       }
+    }
+    else {
+      searchingIndex = 0
+      $("#searchMode").addClass("fadeMode")
+      setTimeout(function() {
+        $("#searchMode").removeClass("fadeMode")
+      }, 350)
+      $("#searchMode").text(searching[searchingIndex])
     }
   })
 

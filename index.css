@@ -774,13 +774,33 @@ body {
         }
 
         #searchIndicator {
+            border-radius: 5px;
             height: 5%;
             width: 90%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 0.8em;
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
         }
+
+        #searchMode{
+            font-size: 0.9em;
+          }
+
+          .fadeMode {
+            animation: fadeIn 0.35s ease-in;
+          }
+      
+      
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
 
         #searchResult {
             width: 90%;
@@ -794,6 +814,7 @@ body {
             margin-top: 10px;
             width: 95%;
         }
+
 
 
 #mainContainer {
