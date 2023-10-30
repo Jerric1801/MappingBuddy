@@ -534,11 +534,15 @@ function generateKanban(sem = user.user[0].sem ) {
 
       drop: function(event, ui) {
 
+        $("#saveContainer").html(" <p><span id = 'autosave;'>&#128994; </span>saved</p>")
+
         var info = ui.draggable.text()
         if (invalid.includes(info)){
           raiseError("Hey there! A reminder that you'll need to complete the module 'CS103 Linear Algebra' first")
           return;
         }
+
+        
 
         // clearInterval(interval)
         if (($("#mainContainer").find('#moduleGap')).length != 0) {
@@ -718,7 +722,8 @@ function createModule(text, clone = false, reco = false){
           $("#modSelection").hide();
           $(this).attr("position", ui.position.top)
           $(this).css("z-index", 50)
-
+          //autosave
+          $("#saveContainer").html(" <p><span id = 'autosave;'>&#128308; </span>saving</p>")
         },
         start: function() {
           $(this).css("pointer-events", "none");
