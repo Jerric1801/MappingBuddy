@@ -508,12 +508,12 @@ function generateKanban(sem = user.user[0].sem ) {
             if (draggablePosition.y > cardTop && draggablePosition.y < nextTop && cardLeft > containerPosition.left && cardRight < containerPosition.right) {
               $("#moduleGap").remove()
               gap.insertAfter(container.children().eq(cardIndex))
-              const interval = setInterval(function(){
+              var interval = setInterval(function(){
                 if (draggablePosition.y < cardTop|| draggablePosition.y > nextTop || cardLeft < containerPosition.left || cardRight > containerPosition.right) {
                   $("#moduleGap").remove();
                   clearInterval(interval)
                 }
-              }, 3000)
+              }, 5000)
             
             }
   
