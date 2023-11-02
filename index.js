@@ -542,6 +542,7 @@ function generateKanban(sem = user.user[0].sem ) {
         var info = ui.draggable.text()
         var valid = $("#mainContainer").find(".moduleCard").text().includes("CS103Linear Algebra for Computing Applications")
         if (invalid.includes(info) && !valid){
+          $("#moduleGap").remove()
           raiseError("Hey there! A reminder that you'll need to complete the module 'CS103 Linear Algebra' first")
           return;
         }
