@@ -517,27 +517,7 @@ function generateKanban(sem = user.user[0].sem ) {
             var cardIndex = $(this).index()
             if (draggablePosition.y > cardTop && draggablePosition.y < nextTop && cardLeft > containerPosition.left && cardRight < containerPosition.right) {
               $("#moduleGap").remove()
-              // const interval = setInterval(function(e){
-              //   var newcardTop = cardTop - ui.draggable.height()
-              //   var newnextTop =  nextTop + ui.draggable.height()
-              //   console.log("running")
-              //   // if (draggablePosition.y < cardTop){
-              //   //   console.log(1)
-              //   //   if (draggablePosition.y > nextTop){
-              //   //     console.log(2)
-              //   if (cardRight < containerPosition.left||cardLeft > containerPosition.right - ui.draggable.height()){
-              //     console.log("stopped")
-              //     $("#moduleGap").remove();
-              //     clearInterval(interval)
-              //   }
-              //   //   }
-              //   // }
-              // }, 250)
-  
               gap.insertAfter(container.children().eq(cardIndex))
-              // Get the offset of the container element.
-
-        
             }
   
           })
@@ -560,7 +540,8 @@ function generateKanban(sem = user.user[0].sem ) {
         $("#saveContainer").html(" <p><span id = 'autosave;'>&#128994; </span>saved</p>")
 
         var info = ui.draggable.text()
-        if (invalid.includes(info)){
+        var valid = $("#mainContainer").find(".moduleCard").text().includes("CS103Linear Algebra for Computing Applications")
+        if (invalid.includes(info) && !valid){
           raiseError("Hey there! A reminder that you'll need to complete the module 'CS103 Linear Algebra' first")
           return;
         }
@@ -756,7 +737,6 @@ function createModule(text, clone = false, reco = false){
             var mouseY = event.pageY;
           
             if ($("#moduleGap").length > 0 && $("#moduleGap").height() > $(window).height() * 0.1) { 
-              console.log('checking')
               var gapOffset = $("#moduleGap").offset();
           
               // Calculate the four coordinates of the gap element.
