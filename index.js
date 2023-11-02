@@ -462,9 +462,18 @@ function generateKanban(sem = user.user[0].sem ) {
 
       module.appendTo(semContainer)
     }
+    // Set up a delegated event handler on the parent container
+    // semContainer.on("DOMNodeInserted", function(event) {
+    //   var element = $(event.target);
 
+    //   // Check if the added element has the ID 'modeulGap'
+    //   if (element.attr("id") === "moduleGap") {
+    //     const interval = setInterval(function() {
+    //       console.log($("#moduleGap").closest(".moduleCard").hasClass("draggable"))
+    //     }, 250)
+    //   }
+    // });
 
-    // clone.children("H1").html(key)
     semContainer.appendTo(semWrapper)
     semWrapper.appendTo($("#mainBoard"))
     count++ 
@@ -495,6 +504,8 @@ function generateKanban(sem = user.user[0].sem ) {
 
         var cards = container.children()
 
+      
+
         if (containerIndex != originIndex) {
           cards.each(function() {
             cardTop = $(this).offset().top  + ui.draggable.height()
@@ -502,23 +513,35 @@ function generateKanban(sem = user.user[0].sem ) {
             cardLeft = $(this).offset().left 
             cardRight = $(this).offset().left  + ui.draggable.width()
             // || nextTop > draggablePosition.y
-            const gap = $("<div id = 'moduleGap'></div>")
+            var gap = $("<div id = 'moduleGap'></div>")
             var cardIndex = $(this).index()
-  
             if (draggablePosition.y > cardTop && draggablePosition.y < nextTop && cardLeft > containerPosition.left && cardRight < containerPosition.right) {
               $("#moduleGap").remove()
+              // const interval = setInterval(function(e){
+              //   var newcardTop = cardTop - ui.draggable.height()
+              //   var newnextTop =  nextTop + ui.draggable.height()
+              //   console.log("running")
+              //   // if (draggablePosition.y < cardTop){
+              //   //   console.log(1)
+              //   //   if (draggablePosition.y > nextTop){
+              //   //     console.log(2)
+              //   if (cardRight < containerPosition.left||cardLeft > containerPosition.right - ui.draggable.height()){
+              //     console.log("stopped")
+              //     $("#moduleGap").remove();
+              //     clearInterval(interval)
+              //   }
+              //   //   }
+              //   // }
+              // }, 250)
+  
               gap.insertAfter(container.children().eq(cardIndex))
-              var interval = setInterval(function(){
-                if (draggablePosition.y < cardTop|| draggablePosition.y > nextTop || cardLeft < containerPosition.left || cardRight > containerPosition.right) {
-                  $("#moduleGap").remove();
-                  clearInterval(interval)
-                }
-              }, 5000)
-            
+              // Get the offset of the container element.
+
+        
             }
   
-  
           })
+        
         }
 
         else {
@@ -727,9 +750,32 @@ function createModule(text, clone = false, reco = false){
         },
         start: function() {
           $(this).css("pointer-events", "none");
+          //mouse event to detect movement for module Gap
+          $(document).mousemove(function(event) {
+            var mouseX = event.pageX;
+            var mouseY = event.pageY;
+          
+            if ($("#moduleGap").length > 0 && $("#moduleGap").height() > $(window).height() * 0.1) { 
+              console.log('checking')
+              var gapOffset = $("#moduleGap").offset();
+          
+              // Calculate the four coordinates of the gap element.
+              var topLeftX = gapOffset.left;
+              var topLeftY = gapOffset.top;
+              var bottomRightX = topLeftX + $("#moduleGap").width();
+              var bottomRightY = topLeftY + $("#moduleGap").height() ;
+              
+              if (!(mouseX >= topLeftX && mouseX <= bottomRightX && mouseY >= topLeftY && mouseY <= bottomRightY)){
+                $("#moduleGap").remove()
+              }
+          
+            }
+          
+          })
         },
         stop: function() {
           $(this).css("pointer-events", "auto");
+          $(document).off("mousemove");
         }
 
       })
@@ -972,6 +1018,7 @@ function search() {
 
 $(document).ready(function() {
 
+
   var first = JSON.parse(localStorage.getItem("first"))
 
   if (first != "success") {
@@ -1060,7 +1107,6 @@ $(document).on("click", function(event) {
     $("#modSelection").hide();
   }
 });
-
 
 
 
