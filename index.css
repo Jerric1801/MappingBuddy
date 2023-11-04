@@ -1390,6 +1390,7 @@ body {
     .expandSemTitle {
         animation: expandSemTitle 1s forwards;
         width: 50%;
+        margin-left:20%;
     }
 
     @keyframes expandSemTitle  {
