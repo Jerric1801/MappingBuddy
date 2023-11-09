@@ -451,6 +451,7 @@ body {
     margin-top: 10vh;
     background-color: var(--pri);
     filter:none;
+    font-size: 1em;
 }
 
     .showInfo {
@@ -470,17 +471,36 @@ body {
         margin-bottom: 10em;
     }
 
-    .IMtext {
-        font-weight: bolder!important;
-        font-size: 1em;
-    }
-
     .IMbox p {
         margin-top: 0.25em;
-        font-size: 0.95em;
     }
 
-    table {
+    .IMtext {
+        background-color: var(--grey);
+        color: var(--pri);
+        font-size: 1em;
+        border-radius: 5px;
+        width: 15%;
+        height: 3vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2.5vh;
+        margin-bottom: 1vh;
+    }
+
+    .IMtext p {
+        margin:0 !important;
+        padding:0;
+    }
+
+    #courseCompetencies {
+        width: 100%;
+    }
+
+
+    /* table {
         border-collapse: collapse;
         width: 50%;
     }
@@ -492,6 +512,25 @@ body {
     
     th {
         background-color: #ffffff;
+    } */
+
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin-bottom: 1vh;
+    }
+    
+    th, td {
+        border: 1px solid var(--grey);
+        padding: 10px;
+    }
+    
+    th {
+        background-color: var(--pri);
+    }
+    
+    tr:nth-child(even) {
+        background-color: #efeeee;
     }
 
 
@@ -840,7 +879,7 @@ body {
         }
 
         #searchMode{
-            font-size: 0.9em;
+            font-size: 1.1em;
           }
 
           .fadeMode {
@@ -1353,6 +1392,20 @@ body {
     background-color: var(--sec);
     box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
 }
+
+    .expandSemWrapper {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        animation: squeezeSem 1s forwards;
+    }
+
+    @keyframes squeezeSem {
+        from {
+            box-shadow: none;
+        }
+        to {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        }
+    }
 
 .semContainer {
     height: 87.5%;
