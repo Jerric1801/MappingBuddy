@@ -42,7 +42,7 @@ const user = {
     }
   ]
 }
-const recommended = ["MGMT102 Strategy", "MGMT106 Introduction to Organisations", "IS212 Software Project Management", "IS213 Enterprise Solution Development", "IS214 Enterprise Solution Management","IS215 Digital Business Technology & Transformation", "COR3301 Ethics & Social Responsbility", "MGMT237 Corporate Strategy", "MGMT.205 International Business", "MGMT.319 Management of Technology and Innovation", "MGMT345 Digital Strategy in the Digital Media and Entertainment E-Commerce Ecosystem in Asia", "IS453 Financial Analytics", "IS461 AI Governance", "IS459 Big Data Architecture", "IS460 Machine Learning & Applications"]
+const recommended = ["MGMT106 Introduction to Organisations", "IS213 Enterprise Solution Development","IS.446 Managing Customer Relations with Analytics: Asian Insights", "IS212 Software Project Management", "MGMT102 Strategy", "IS213 Enterprise Solution Development", "MGMT.236 Managing Strategic Change and Digital Transformation", "MGMT237 Corporate Strategy","IS215 Digital Business Technology & Transformation","IS214 Enterprise Solution Management","COR3301 Ethics & Social Responsbility", "MGMT.205 International Business", "MGMT.319 Management of Technology and Innovation", "MGMT345 Digital Strategy in the Digital Media and Entertainment E-Commerce Ecosystem in Asia", "IS453 Financial Analytics", "IS461 AI Governance", "IS459 Big Data Architecture", "IS460 Machine Learning & Applications"]
 var currentBoard = 0
 var tabIndex = 0
 var semIndex = 0
@@ -59,13 +59,14 @@ const modColor = {
   "SM": "#009688"
 }
 
-const invalid = ["CS.420Introduction to Artificial Intelligence"]
+const invalid = ["CS421Principles of Machine Learning"]
+
 
 const tutorial = {
   "Welcome 🐻":["Welcome to MappingBuddy! 🌟 We're about to take a quick tour to explore the awesome features of Mapping Buddy. Click right where my magic wand points to begin the adventure! ✨🗺️",["35vw","35vh"],["62vw","57.5vh"], ""],
-    "Open Track Selector 🛤️":["Click on this button where my magic wand points to embark on your journey! This is where you choose your major or track. [action needed]",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
+    "Open Track Selector 🛤️":["Click on this button where my magic wand points to embark on your journey! This is where you choose your major or track. [action needed]",["65vw","20vh"],["91.5vw","10vh"], "#openTrack"],
     "Select Track 🚀":["Explore your potential majors by clicking the dropdowns. Let's unlock new possibilities together!",["60vw","26vh"],["62vw","18.5vh"], ".trackContainer"],
-    "Close Track Selector 🚪":["After you've made your selections, close the Track Selector by clicking where my magic wand points. This paves the way for your academic adventure. [action needed]",["65vw","20vh"],["89.5vw","10vh"], "#openTrack"],
+    "Close Track Selector 🚪":["After you've made your selections, close the Track Selector by clicking where my magic wand points. This paves the way for your academic adventure. [action needed]",["65vw","20vh"],["91.5vw","10vh"], "#openTrack"],
     "Kanban Board 📊":["Welcome to the Kanban Board! This is where the magic of module planning happens. You can effortlessly drag and drop module cards and smoothly scroll through the semesters. Let's plan like a pro!",["60vw","40vh"],["55vw","57vh"],"#mainBoard"],
     "Search 🔎":["Looking for specific modules? The search bar is your trusty companion. Look out for the recommendation icon 👍🏻 on the top-right of your module cards.",["13vw","17vh"],["10vw","9vh"],"#searchInput"],
     "Filter 🧹":["If you want to refine your module search, use the filter button. This feature makes finding the perfect modules a breeze! To open the modal, click where my magic wand points! [action needed]",["15vw","20vh"],["14vw","9vh"], "#filterContainer"],
@@ -73,6 +74,10 @@ const tutorial = {
     "Course Units 📚":["The Course Units bar is your handy guide. It tells you how many course units you have left to complete. Stay on track with this helpful indicator. To get more infomation about CUs, click where my magic wand points! [action needed]",["20vw","12vh"],["51vw","8vh"], "#cuInformation"],
     "Course Unit Information ℹ️":["Need a closer look at your course units? Explore our information feature for a breakdown of your basket. You can exit once you're satisfied with your choices, click where my magic wand points! [action needed]",["70vw","25vh"],["70.5vw","17vh"], ".closeModal"],
     "Tabs 📌":["Get ready to unleash your creativity! You can rename, duplicate, and create tabs to plan multiple course progressions at once.",["32vw","68vh"],["26vw","89vh"], ".tab"],
+}
+
+function toggleFAQ () {
+  $("#faqModal").toggle()
 }
 
 function introduction() {
@@ -381,7 +386,6 @@ function toggleFocus(){
     $("#mainContainer").css("width", "86%")
     $("#mainContainer").css("margin-left", "14%")
     $(".semTitle").addClass("expandSemTitle")
-    $(".semWrapper").addClass("expandSemWrapper")
      cards.addClass("shrink")
     }
   else {
@@ -391,7 +395,6 @@ function toggleFocus(){
     $("#mainContainer").css("margin-left", "17.5%")
     // $("#focusKanban img").prop("src", "./img/fullscreen (1).png")
     $(".semTitle").removeClass("expandSemTitle")
-    $(".semWrapper").removeClass("expandSemWrapper")
     cards.removeClass("shrink")
   }
   
@@ -459,9 +462,18 @@ function generateKanban(sem = user.user[0].sem ) {
 
       module.appendTo(semContainer)
     }
+    // Set up a delegated event handler on the parent container
+    // semContainer.on("DOMNodeInserted", function(event) {
+    //   var element = $(event.target);
 
+    //   // Check if the added element has the ID 'modeulGap'
+    //   if (element.attr("id") === "moduleGap") {
+    //     const interval = setInterval(function() {
+    //       console.log($("#moduleGap").closest(".moduleCard").hasClass("draggable"))
+    //     }, 250)
+    //   }
+    // });
 
-    // clone.children("H1").html(key)
     semContainer.appendTo(semWrapper)
     semWrapper.appendTo($("#mainBoard"))
     count++ 
@@ -492,6 +504,8 @@ function generateKanban(sem = user.user[0].sem ) {
 
         var cards = container.children()
 
+      
+
         if (containerIndex != originIndex) {
           cards.each(function() {
             cardTop = $(this).offset().top  + ui.draggable.height()
@@ -499,23 +513,15 @@ function generateKanban(sem = user.user[0].sem ) {
             cardLeft = $(this).offset().left 
             cardRight = $(this).offset().left  + ui.draggable.width()
             // || nextTop > draggablePosition.y
-            const gap = $("<div id = 'moduleGap'></div>")
+            var gap = $("<div id = 'moduleGap'></div>")
             var cardIndex = $(this).index()
-  
             if (draggablePosition.y > cardTop && draggablePosition.y < nextTop && cardLeft > containerPosition.left && cardRight < containerPosition.right) {
               $("#moduleGap").remove()
               gap.insertAfter(container.children().eq(cardIndex))
-              const interval = setInterval(function(){
-                if (draggablePosition.y < cardTop|| draggablePosition.y > nextTop || cardLeft < containerPosition.left || cardRight > containerPosition.right) {
-                  $("#moduleGap").remove();
-                  clearInterval(interval)
-                }
-              }, 3000)
-            
             }
   
-  
           })
+        
         }
 
         else {
@@ -531,11 +537,17 @@ function generateKanban(sem = user.user[0].sem ) {
 
       drop: function(event, ui) {
 
+        $("#saveContainer").html(" <p><span id = 'autosave;'>&#128994; </span>saved</p>")
+
         var info = ui.draggable.text()
-        if (invalid.includes(info)){
+        var valid = $("#mainContainer").find(".moduleCard").text().includes("CS103Linear Algebra for Computing Applications")
+        if (invalid.includes(info) && !valid){
+          $("#moduleGap").remove()
           raiseError("Hey there! A reminder that you'll need to complete the module 'CS103 Linear Algebra' first")
           return;
         }
+
+        
 
         // clearInterval(interval)
         if (($("#mainContainer").find('#moduleGap')).length != 0) {
@@ -660,7 +672,7 @@ function toggleModSelect(element) {
     cardIndex = semContainer.find(card).index()
   }
   else {
-    cardIndex = $("#sw21earchResult").find(card).index()
+    cardIndex = $("#searchResult").find(card).index()
   }
 
   var modSelect = $(element).offset()
@@ -715,13 +727,36 @@ function createModule(text, clone = false, reco = false){
           $("#modSelection").hide();
           $(this).attr("position", ui.position.top)
           $(this).css("z-index", 50)
-
+          //autosave
+          $("#saveContainer").html(" <p><span id = 'autosave;'>&#128308; </span>saving</p>")
         },
         start: function() {
           $(this).css("pointer-events", "none");
+          //mouse event to detect movement for module Gap
+          $(document).mousemove(function(event) {
+            var mouseX = event.pageX;
+            var mouseY = event.pageY;
+          
+            if ($("#moduleGap").length > 0 && $("#moduleGap").height() > $(window).height() * 0.1) { 
+              var gapOffset = $("#moduleGap").offset();
+          
+              // Calculate the four coordinates of the gap element.
+              var topLeftX = gapOffset.left;
+              var topLeftY = gapOffset.top;
+              var bottomRightX = topLeftX + $("#moduleGap").width();
+              var bottomRightY = topLeftY + $("#moduleGap").height() ;
+              
+              if (!(mouseX >= topLeftX && mouseX <= bottomRightX && mouseY >= topLeftY && mouseY <= bottomRightY)){
+                $("#moduleGap").remove()
+              }
+          
+            }
+          
+          })
         },
         stop: function() {
           $(this).css("pointer-events", "auto");
+          $(document).off("mousemove");
         }
 
       })
@@ -915,8 +950,16 @@ function filterMods(searchTerm) {
   return results
 }
 
+const searching = ["Search", "Search..", "Search....", "Search......"]
+var searchingIndex = 0
+
 function search() {
   $("#searchbar").keyup(function() {
+    if (searchingIndex == 4) {
+      searchingIndex = 0
+    }
+    $("#searchMode").text(searching[searchingIndex])
+    searchingIndex += 1
     // Get the search term
     var searchTerm = $(this).val();
 
@@ -956,6 +999,7 @@ function search() {
 
 $(document).ready(function() {
 
+
   var first = JSON.parse(localStorage.getItem("first"))
 
   if (first != "success") {
@@ -984,11 +1028,24 @@ $(document).ready(function() {
   }
   $("#searchInput").find("input").blur(function() {
     if($(this).val() == "") {
+      $("#searchMode").addClass("fadeMode")
+      setTimeout(function() {
+        $("#searchMode").removeClass("fadeMode")
+      }, 350)
+      $("#searchMode").text("Recommendations")
       $("#searchResult").empty()
       for (mod in recommended) {
         var module = createModule(recommended[mod],true, true)
         module.appendTo($("#searchResult"))
       }
+    }
+    else {
+      searchingIndex = 0
+      $("#searchMode").addClass("fadeMode")
+      setTimeout(function() {
+        $("#searchMode").removeClass("fadeMode")
+      }, 350)
+      $("#searchMode").text(searching[searchingIndex])
     }
   })
 
@@ -1031,7 +1088,6 @@ $(document).on("click", function(event) {
     $("#modSelection").hide();
   }
 });
-
 
 
 
