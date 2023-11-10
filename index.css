@@ -480,8 +480,8 @@ body {
         color: var(--pri);
         font-size: 1em;
         border-radius: 5px;
-        width: 15%;
-        height: 3vh;
+        width: 25%;
+        height: 4vh;
         display: flex;
         flex-direction: row;
         align-items: center;

@@ -385,6 +385,7 @@ function toggleFocus(){
     $("#sideBar").css("width", "14%")
     $("#mainContainer").css("width", "86%")
     $("#mainContainer").css("margin-left", "14%")
+    $(".semWrapper").addClass("expandSemWrapper")
     $(".semTitle").addClass("expandSemTitle")
      cards.addClass("shrink")
     }
@@ -393,7 +394,7 @@ function toggleFocus(){
     $("#sideBar").css("width", "17.5%")
     $("#mainContainer").css("width", "82.5%")
     $("#mainContainer").css("margin-left", "17.5%")
-    // $("#focusKanban img").prop("src", "./img/fullscreen (1).png")
+    $(".semWrapper").removeClass("expandSemWrapper")
     $(".semTitle").removeClass("expandSemTitle")
     cards.removeClass("shrink")
   }
